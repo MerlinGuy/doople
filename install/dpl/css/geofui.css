@@ -1,0 +1,452 @@
+div.geofui_main {
+    width:100%;
+    height: 580px;
+    border: 1px solid #aaaaaa;
+}
+
+div.geofui_main_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div.geofui_opacity_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6f8388;
+    filter:alpha(opacity=15);
+    -moz-opacity:0.15;
+    -khtml-opacity: 0.15;
+    opacity: 0.15;
+    z-index: -1;
+}
+
+div.geofui_content_overlay {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+div.overlay_hidden {
+    display:none;
+}
+
+div.overlay_shown {
+    display:block;
+    z-index:100 !important;
+}
+
+div.dlgWrapper {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid #46b400;
+    background-color: #ffffff;
+}
+
+div.subDlgWrapper {
+    margin:4px 4px 2px 4px;
+    border: 1px solid #46b400;
+    background-color: #ffffff;
+}
+
+div.pnl_listBlockNoWidth {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: inline-block;
+    background-color: #ffffff;
+    height:600px;
+}
+
+div.pnl_listBlock {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: inline-block;
+    background-color: #ffffff;
+    width:480px;
+    height:600px;
+}
+
+div.pnl_listBlockWide {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: inline-block;
+    background-color: #ffffff;
+    width:560px;
+    height:600px;
+}
+
+div.pnl_listExWide {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: inline-block;
+    background-color: #ffffff;
+    width:620px;
+    height:600px;
+}
+
+div.sub_pnl_listBlock {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: inline-block;
+    background-color: #ffffff;
+    width:560px;
+    height:99%;
+}
+
+div.pnl_usrBlock {
+    display: inline-block;
+    background-color: #ffffff;
+    width:480px;
+    height:600px;
+}
+
+div.dlgHeaderBar {
+    padding:2px;
+    height:28px;
+}
+
+div.dlg_content_panel {
+    display: inline;
+}
+
+div.content_panel {
+    float:left;
+    margin:2px;
+    padding:2px;
+}
+
+div.list_header {
+    height:22px;
+    background-color: #d3d3d3 !important;
+    border-bottom: 1px solid #9999a1;
+    padding: 0px 22px 0px 6px
+}
+
+div.list_header2 {
+    height:22px;
+    background-color: #d3d3d3 !important;
+    border-bottom: 1px solid #9999a1;
+    padding: 0px 8px 0px 10px
+}
+
+div.sub_list_header {
+    height:22px;
+    background-color: #d3d3d3 !important;
+    border-bottom: 1px solid #9999a1;
+    padding: 0px 22px 0px 10px;
+    margin:0px;
+}
+
+div.sub_scroll_content_panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height:300px;
+}
+
+div.sub_content_panel {
+    /*max-height:300px;*/
+}
+
+td.content_panel {
+    vertical-align:top;
+    margin:2px;
+    padding:2px;
+}
+
+td.scroll_content_panel {
+    vertical-align:top;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:600px;
+    max-height:600px;
+}
+
+input.efIsDefault {
+    /* dummy css class do not delete */
+}
+
+
+input.permCol {
+    float:right;
+    width:48px;
+}
+
+input.permCol2 {
+    border: 0;
+    outline: none;
+    outline-offset: 0;
+    float:right;
+    width:54px;
+    font-size: .9em !important;
+    margin: 2px 0px 0px 0px;
+}
+
+label.authcode_label {
+    font-size: 1.1em !important;
+    margin: 0px 4px 0px 8px;
+}
+
+label.authcode_guid_label {
+    font-size: 1.1em !important;
+    margin: 0px 4px 0px 2px;
+}
+
+div.dialogHeader {
+    height:34px;
+}
+
+.iconInline {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 4px;
+    cursor: pointer;
+}
+/*
+Authorization code section
+*/
+div.editAuthcode {
+    width: 500px;
+    height: 340px;
+}
+
+label.editAuthcode {
+    width:120px;
+    padding: 4px;
+}
+
+select.authcodeUsr {
+    width:300px;
+    font-size: .8em !important;
+}
+
+/*
+User code section
+*/
+
+div.editLine {
+    margin: 2px;
+}
+
+div.aligntop {
+    vertical-align:top;
+}
+
+
+label.checkboxRight {
+    float:right;
+    margin-right: 6px;
+    margin-top: 6px;
+    font-size: 0.7em;
+}
+
+input.textright {
+    text-align: right;
+}
+
+div.leftslide{
+    position:absolute;
+    top:34px;
+    left:0px;
+    border: 1px solid #46b400;
+    margin:2px;
+    padding:0px;
+    width:99%;
+}
+
+div.baseMap {
+    /*float:left;*/
+    vertical-align: top;
+    min-height:640px;
+    min-width:600px;
+    border: 1px solid #248887;
+    margin:2px;
+    height:98%;
+}
+
+div.mapList {
+    position:relative;
+    float:left;
+    vertical-align: top;
+    width:340px;
+    height:98%;
+    border: 1px solid #248887;
+    margin:2px;
+}
+
+div.mapListScrollSection {
+    border-top: 1px solid #46b400;
+    border-bottom: 1px solid #46b400;
+    margin-bottom:6px;
+    /*padding:4px;*/
+    overflow-y: scroll;
+    width:100%;
+    height:524px;
+}
+
+label.gmap_bounds {
+    float:left;
+    text-align:left;
+    width:240px;
+    height:14px;
+    padding:0px;
+    margin:7px 0px 2px 2px;
+    font-size: 0.75em !important;
+    color: #2c588c;
+    /*border: 1px solid #83838b;*/
+}
+
+div.gmap_toggle {
+    margin:4px 2px 4px 8px;
+}
+
+div.mapHolder {
+    height:500px;
+    width:600px;
+    min-height:400px;
+    min-width:400px;
+}
+
+#olGMapFileList .ui-selecting { background: rgb(227, 227, 227); }
+#olGMapFileList .ui-selected { background: rgb(177, 219, 156); color: black; }
+#olGMapFileList { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+#olGMapFileList li { margin: 2px; padding: 0.3em; font-size: 0.8em; height: 15px; cursor: pointer; }
+
+div.sub_link {
+    margin:4px;
+    padding:2px 2px 0px 4px;
+    height:34px;
+    width:34px;
+}
+
+div.disabled {
+    border: 2px solid #dadada;
+}
+
+div.enabled {
+    border: 2px solid #2853ca;
+}
+
+div.active {
+    border: 2px solid #16bc0f;
+}
+
+span.sub_link {
+    margin:0px;
+    padding:0px;
+}
+
+img.sub_link {
+    margin:0px;
+    padding:0px;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+div.usr_pwd {
+    padding:2px 0px 0px 0px;
+    width:460px;
+    height:34px;
+    border: 1px solid #dadada;
+}
+
+input.upl_keyword {
+    width: 90%;
+    font-size: .8em;
+}
+
+input.upl_project {
+    width: 250px;
+    font-size: .8em;
+}
+
+input.srch_project {
+    margin-top:4px;
+    margin-right:2px;
+    width: 250px;
+    font-size: .8em;
+}
+
+div.annotationItems {
+    width:100%;
+    border: 1px solid #46b400;
+    overflow-y: auto;
+    overflow-x: hidden;
+    clear:both;
+    height:100%;
+}
+
+div.annotationUsr {
+    border: 1px solid #46b400;
+    max-height:124px;
+    width:100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    clear:both;
+}
+
+div.annotationBorder {
+    float:right;
+    width:240px;;
+    display:none;
+    margin:0px 0px 0px 4px;
+    padding:0px;
+    height:100%;
+}
+
+textarea.annotation_msg {
+    width:98%;
+    height:40px;
+    resize:none;
+    font-size: 10px;
+    font-family: verdana, arial, helvetica, sans-serif;
+    border: 1px solid #9e9e9e;
+    background-color: #FFFFFE !important;
+}
+
+canvas.annotation {
+    position:absolute;
+    z-index:201;
+}
+
+textarea.annotation {
+    border: 2px solid #9e9e9e;
+    width:346px;
+    height:46px;
+}
+
+.slider_annotation {
+    height:14px;
+    width:94%;
+    margin:4px 0px 0px 6px;
+    padding:0px;
+}
+
+label.annotation {
+    font-size:12px;
+    font-family: verdana, arial, helvetica, sans-serif;
+    padding: 0px;
+    margin:0px 4px 0px 2px;
+    line-height:.8em;
+    color: #14249e;
+}
+
+.nota_anno {
+    color: #15429e;
+    cursor: pointer;
+}
+
+.bold {
+    font-weight:bold !important;
+}
+
+div.timecntrl {
+    height:60px;
+    border: 1px solid #248887;
+    margin:1px 2px;
+}

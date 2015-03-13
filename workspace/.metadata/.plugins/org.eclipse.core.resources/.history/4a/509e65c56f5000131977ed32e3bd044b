@@ -1,0 +1,5 @@
+package org.geof.service;
+
+public class DoppleContextListener {
+
+}

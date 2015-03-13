@@ -1,0 +1,236 @@
+package org.geof.admin;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+
+import org.geof.db.DBConnMgr;
+import org.geof.db.DBConnection;
+import org.geof.db.DBInteract;
+import org.geof.db.EntityMapMgr;
+import org.geof.log.Logger;
+import org.geof.prop.GlobalProp;
+import org.geof.request.EntityRequest;
+import org.geof.request.UsrRequest;
+import org.geof.service.JsonWriter;
+
+public class GeofAdmin {
+	
+	private static GlobalProp _gprops = null;
+	private DBInteract _dbi = null;
+	private static final boolean _debug = false;
+	private static int _DatabaseType = DBConnMgr.POSTGRESQL;
+
+	private static final Map<String, String> cmdMap;
+    static {
+        Map<String, String> aMap = new HashMap<String,String>();
+        aMap.put("-f", "firstname");
+        aMap.put("-l", "lastname");
+        aMap.put("-u", "loginname");
+        aMap.put("-p", "password");
+        aMap.put("-e", "email");
+        aMap.put("-c", "config");    
+        cmdMap = Collections.unmodifiableMap(aMap);
+    }
+
+	public GeofAdmin() {}
+	
+	public void setupLog(String logPath) {
+		int loglevel = Logger._VERBOSE;
+		Logger.initialize(logPath, "GeofAdmin run at ", loglevel);		
+	}
+	
+	public void init(String confPath) throws Exception {
+		String basePath = null; 
+		if (confPath == null) {
+			basePath = System.getProperty("user.dir");
+			confPath = basePath + "/../conf/geof.conf";
+		}
+		
+		File confFile = new File(confPath);ssh
+		if ( ! confFile.exists()) {
+			throw new Exception("geof.conf file missing - " + confFile.getCanonicalPath());
+		}
+		
+		_gprops = GlobalProp.instance();
+		if (! _gprops.populate(confFile)) {
+			throw new Exception("Global Properties initialization failed");
+		}
+		
+		_gprops.put("basepath", basePath);
+		
+		String connStr = _gprops.get("connstr");
+		String uid = _gprops.get("uid");
+		String pwd = _gprops.get("pwd");
+
+		DBConnection conn = openConnection(connStr, uid, pwd);
+		if (conn == null) {
+			throw new Exception("Could not connect to database - " + connStr);
+		}
+		JsonWriter null_writer = null;
+		_dbi = new DBInteract( conn, null_writer );
+		if (_dbi == null) {
+			throw new Exception("Failed to instanciate DBInteract");
+		}
+	}
+	
+	public static DBConnection openConnection(String connStr, String uid, String pwd) {
+		try {
+			Class<?> c = Class.forName("org.geof.db." + DBConnMgr.CONN_NAMES[_DatabaseType]);
+			DBConnection conn = (DBConnection) c.newInstance();
+
+			if (conn.connect(connStr, uid, pwd)) {
+				return conn;
+			} else {
+				Logger.error("openConnection failed");
+				Logger.error("_connStr " + connStr);
+				Logger.error("_uid " + uid);
+				Logger.error("_pwd " + pwd);
+			}
+
+		} catch (Exception e) {
+			Logger.error("GeofAdmin.openConnection");
+			Logger.error(e);
+		}
+		return null;
+	}
+
+	public boolean fixEntities() {
+		EntityMapMgr.initialize(_dbi);
+		EntityRequest er = new EntityRequest();
+		er.init(this._dbi);
+		return er.fixEntities();
+	}
+	
+	public boolean changePassword(HashMap<String, String> mapArgs) {
+		String[] reqd = "loginname,password".split(",");
+		for (String key : reqd) {
+			if (! mapArgs.containsKey(key)) {
+				Logger.error("ERROR - updatePwd missing value for " + key);
+				return false;
+			}
+		}
+		UsrRequest ur = new UsrRequest();
+		ur.init(this._dbi);
+		return ur.changePassword(mapArgs);
+	}
+	
+	public boolean updateEmail(HashMap<String, String> mapArgs) {
+		String[] reqd = "loginname,email".split(",");
+		for (String key : reqd) {
+			if (! mapArgs.containsKey(key)) {
+				Logger.error("ERROR - updateEmail missing value for " + key);
+				return false;
+			}
+		}
+		UsrRequest ur = new UsrRequest();
+		ur.init(this._dbi);
+		return ur.changeEmail(mapArgs);
+	}
+	
+	public boolean createUser(HashMap<String, String> mapArgs) {
+		String[] reqd = "firstname,lastname,loginname,password,email".split(",");
+		for (String key : reqd) {
+			if (! mapArgs.containsKey(key)) {
+				Logger.error("ERROR - createUsr missing value for " + key);
+				return false;
+			}
+		}		
+		UsrRequest ur = new UsrRequest();
+		ur.init(this._dbi);
+		return ur.createUsr(mapArgs);
+	}
+	
+	public static HashMap<String,String> lookup(HashMap<String,String> mArgs) {
+		HashMap<String,String> rtn = new HashMap<String,String>();
+		for (String key : cmdMap.keySet()) {
+			String newKey = key;
+			if (key.startsWith("-")) {
+				newKey = cmdMap.get(key);
+			}
+			rtn.put(newKey, mArgs.get(key));
+		}
+		return rtn;
+	}
+	
+	public static void outputHelp() {
+		System.out.println("Command failed - Invalid arguement format\n");
+		System.out.println("Valid commands...");
+		System.out.println("    -fixEntities\nOr");
+		System.out.println("    -updatePwd -u <username> -p <password>\nOr");
+		System.out.println("    -updateEmail -u <username> -e <email>\nOr");
+		System.out.println("    -createUsr -u <username> -p <pwd> -f <firstname> -l <lastname> -e <email>");
+		System.exit(1);
+	}
+	
+	public static void main(String [] args) {
+		try {
+			if (_debug) {
+				Thread.sleep(10000);
+			}
+			HashMap<String, String> mapArgs = new HashMap<String, String>();
+			
+			int len = args.length;
+			if (len % 2 == 0) {
+				outputHelp();
+			}
+			String name;
+			
+			int indx = 1;
+			while (indx < len) {
+				name = args[indx++];
+				if (name.startsWith("-")) {
+					mapArgs.put(name, args[indx++]);
+				} else {
+					outputHelp();
+				}
+			}
+			
+			GeofAdmin ga = new GeofAdmin();
+			String logPath = mapArgs.get("-log");
+			if (logPath != null) {
+				ga.setupLog(logPath);
+			} else {
+				Logger.initialize(null, "GeofAdmin.main started: ", Logger._VERBOSE);
+			}
+			
+			String action = args[0];
+			boolean rtn = false;
+			
+			Logger.debug("Running " + action);
+			
+			mapArgs = lookup(mapArgs);
+			String confPath = mapArgs.get("config");
+			ga.init(confPath);
+
+			if (action.equals("-fixEntity") ) {
+				rtn = ga.fixEntities(); 
+			}
+			else if (action.equals("-updatePwd")) {			
+				rtn = ga.changePassword(mapArgs);
+			}
+			else if (action.equals("-updateEmail")) {			
+				rtn = ga.updateEmail(mapArgs);
+			}
+			else if (action.equals("-createUsr")) {			
+				rtn = ga.createUser(mapArgs);
+			}
+			else {
+				outputHelp();
+			}				
+			if (rtn) {
+				Logger.debug("... completed successfully");
+			} else {
+				Logger.debug("... failed to complete");
+			}
+			Logger.debug("Finished.");
+		} catch (Exception e) {
+			Logger.error(e.getMessage());
+			System.exit(1);
+		}
+
+	}
+
+}

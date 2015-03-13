@@ -1,0 +1,29 @@
+<div id="mapview_container" class="viewer_container" onresize="Geof.cntrl.map.resize()">
+
+    <div class="floatLeft">
+        <div id="mapViewCanvas" class="baseMap"></div>
+        <div id="timecntrl" class="timecntrl"></div>
+    </div>
+
+    <div id="mapList" class="mapList">
+        <div class="buttonBar">
+            <span class="ui-icon icon_geof_map_enable iconLeft" id="btnCntrlMapDrawExtent" title="Draw Extent"></span>
+            <span class="ui-icon icon_geof_place_enable iconLeft" id="btnCntrlMapDrawPoint" title="Select Point"></span>
+            <span class="ui-icon icon_geof_picture_enable iconLeft" id="btnSetMapMarker" title="Show markers as thumbnails"></span>
+            <span class="ui-icon icon_geof_camera_enable iconLeft" id="btnShowPhoto" title="Show viewer on selection"></span>
+        </div>
+        <div class="mapListScrollSection">
+            <ol id="olGMapFileList"></ol>
+        </div>
+        <div class="mapLowButtonBar">
+            <span class="ui-icon icon_geof_pin_enable iconLeft" id="btnSaveBounds" title="Save Bounds"></span>
+            <label class="mt8 font10 floatLeft">Bounds:</label>
+            <label id="gmap_bounds" class="gmap_bounds"></label>
+        </div>
+        <div class="mapLowButtonBar">
+            <span class="ui-icon icon_geof_pin_enable iconLeft" id="btnCopyExtent" title="Copy Extent"></span>
+            <label class="mt8 font10 floatLeft">Extent:</label>
+            <label id="gmap_extent" class="gmap_bounds"></label>
+        </div>
+    </div>
+</div>

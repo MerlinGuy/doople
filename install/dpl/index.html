@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Geofixated Dash Cam</title>
+
+<!-- Third Party CSS file includes -- -->
+<link rel="stylesheet" href="tp/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="tp/css/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" type="text/css" href="tp/jqGrid/css/ui.jqgrid.css" />
+
+<!-- -- CSS file includes -- -->
+<link rel="stylesheet" href="css/geof_icons.css" />
+<link rel="stylesheet" href="css/geof_common.css" />
+<link rel="stylesheet" href="css/geofui.css" />
+<link rel="stylesheet" href="css/viewfile.css" />
+<link rel="stylesheet" href="css/geof_jquery_custom.css" />
+
+<!-- Deprecated Third Party Javascript file includes
+<script src="tp/yepnope.1.5.4-min.js"></script>
+-->
+
+<!-- third japi party javascript files -->
+<script src="tp/jquery-1.9.1.min.js"></script>
+<script src="tp/jquery-ui-1.10.3.min.js"></script>
+<script src="tp/jquery-ui-timepicker-addon.js"></script>
+<script src="tp/jquery-ui-sliderAccess.js"></script>
+<script src="tp/jquery.mousewheel.js"></script>
+
+<!-- third geofixated party javascript files -->
+<script src="tp/jqGrid/js/i18n/grid.locale-en.js"></script>
+<script src="tp/jqGrid/js/jquery.jqGrid.min.js"></script>
+
+<script src="tp/timeline/src/ajax/api/simile-ajax-api.js?bundle=false"></script>
+<script src="tp/timeline/src/webapp/api/timeline-api.js?bundle=false"></script>
+
+<script src="tp/json.js"></script>
+<script src="tp/stanford/jsbn.js"></script>
+<script src="tp/stanford/jsbn2.js"></script>
+<script src="tp/stanford/prng4.js"></script>
+<script src="tp/stanford/rng.js"></script>
+<script src="tp/stanford/rsa.js"></script>
+<script src="tp/stanford/rsa2.js"></script>
+<script src="tp/stanford/sjcl.js"></script>
+<script src="tp/kinetic-v4.5.4.min.js"></script>
+<script src="tp/base64.js"></script>
+<script src="tp/nl_exif.js"></script>
+<script src="tp/zip/zip.js"></script>
+<script src="tp/zip/inflate.js"></script>
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAebzlNTIv_Dxmo3wbhWm8kVa6-9X71dPA&sensor=false&libraries=geometry">
+</script>
+
+<!-- core japi javascript files -->
+<script src="core/js/comm/grequest.js"></script>
+<script src="core/js/comm/gsession.js"></script>
+<script src="core/js/comm/login.js"></script>
+<script src="core/js/comm/notification.js"></script>
+<script src="core/js/comm/recorder.js"></script>
+<script src="core/js/comm/requery.js"></script>
+<script src="core/js/comm/retrieve.js"></script>
+<script src="core/js/comm/sjclaes.js"></script>
+<script src="core/js/comm/transaction.js"></script>
+<script src="core/js/comm/uploadfile.js"></script>
+
+<script src="core/js/ext/kinetic_extensions.js"></script>
+<script src="core/js/ext/timecontrol.js"></script>
+
+<script src="core/js/util/formfiller.js"></script>
+<script src="core/js/util/gicon.js"></script>
+<script src="core/js/util/japi_utils.js"></script>
+
+<script src="core/js/file/filetypes.js"></script>
+
+<script src="core/js/mvc/gmenu.js"></script>
+<script src="core/js/mvc/panel_mgr.js"></script>
+<script src="core/js/mvc/japi_cntrl.js"></script>
+<script src="core/js/mvc/gmodel.js"></script>
+
+<!-- geofixated javascript files -->
+<script src="js/util/geof_data.js"></script>
+<script src="js/util/gpsutil.js"></script>
+<script src="js/event/gevent.js"></script>
+
+<script src="js/file/gps/readers.js"></script>
+
+<script src="js/mvc/adjusttime.js"></script>
+<script src="js/mvc/datagrid_view.js"></script>
+<script src="js/mvc/full_view.js"></script>
+<script src="js/mvc/geof_cntrl.js"></script>
+<script src="js/mvc/gmap_popup.js"></script>
+<script src="js/mvc/map.js"></script>
+<script src="js/mvc/map_view.js"></script>
+<script src="js/mvc/photo_popup.js"></script>
+<script src="js/mvc/search.js"></script>
+<script src="js/mvc/thumbnail_view.js"></script>
+<script src="js/mvc/timeline_view.js"></script>
+<script src="js/mvc/track_popup.js"></script>
+<script src="js/mvc/upload_view.js"></script>
+<script src="js/mvc/video_popup.js"></script>
+
+<!-- ------------------------------------- -->
+<!-- Start index file javascript code here -->
+
+<script type="text/javascript">
+
+var Geof = Geof || {};
+Geof['initialized'] = false;
+Geof.session = null;
+Geof.permissions = null;
+Geof.security = false;
+
+Geof.initialized = false;
+Geof.isFirstShow = true;
+
+Geof.stats = {};
+Geof.dash = {};
+
+Geof.dash.buttons = ["btnNavHome","btnGoFavorite","btnSetFavorite",
+    "btnQuickSearch","btnQuickUpload","btnRemoveQuickLink","btnAddQuickLink"];
+
+
+$(function() {
+    // Disable caching of AJAX responses
+    $.ajaxSetup ({cache:false});
+
+    zip.workerScriptsPath = "tp/zip/";
+
+    $(window).resize(windowResized);
+    windowResized();
+
+    Geof.recorder.setControl("btnViewRecorder");
+
+    TransMgr.addPreCall(Geof.recorder.addSent) ;
+    TransMgr.addPostCall(Geof.recorder.addReply);
+
+    TransMgr.transmit_func = function(isActive) {
+        if (isActive) {
+            Gicon.setActive("btnTransmit",true);
+        } else {
+            Gicon.setEnabled("btnTransmit",true);
+        }
+    };
+
+    Geof.notifier.setControl('iconNotifications');
+    Geof.login.setControl();
+
+    //-------------------------------
+    // Setup Current Session object
+    Geof.session = new GSession();
+    Geof.session.addLoginCallback(loginCallback);
+
+    var opts = {
+        id:'btnEncryptRequests',
+        offIcon:'icon_geof_notsecure_enable',
+        onIcon:'icon_geof_secure_active',
+        onState:Gicon.ACTIVE,
+        onCallout:Geof.session.activateEncryption,
+        offCallout:Geof.session.deactivateEncryption
+    };
+
+    var icon = Gicon.switchDepend(opts, GLocal.getBoolean('autoencrypt'));
+
+    var encryting_callback = function(encrypting, err_msg) {
+        icon.setState(encrypting);
+        if (err_msg) {
+            Geof.notifier.addLocal(err_msg,3,1);
+        }
+    };
+
+    Geof.menuctrl.addCallback(setMenuIcon);
+
+    Geof.session.initialize(encryting_callback);
+
+    PanelMgr.initialize();
+    // Setup Graphical Menu
+    $( 'div.headerbar' ).tooltip();
+    setupButtonEvents();
+
+    Geof.photo_popup = new PhotoPopup('mainBody', null);
+    Geof.map_popup = new GMapPopup('mainBody');
+    Geof.video_popup = new VideoPopup('mainBody');
+    Geof.track_popup = new TrackPopup('mainBody');
+
+});
+
+function windowResized() {
+    $('#lblWindowWidth').text("window width: " + $(window).width());
+    $('#divContent').height($(window).height() - 40);
+    $('#divMenu').height($(window).height() - 40);
+}
+
+function setupButtonEvents() {
+
+    // ----------------------------
+    // Setup all the login UI events
+    var cbLogin = function() {
+        if (Geof.session.sessionId || false) {
+            Geof.cntrl.search.clearSearch();
+            Geof.menuctrl.setMenu('main');
+            $("#btnLoginIcon").title = "Login";
+            Geof.session.logout();
+        } else {
+            loginCallback(false);
+        }
+    };
+    Gicon.click("btnLoginIcon", cbLogin, true);
+    Gicon.click('btnEditProfile',Geof.cntrl.profile.edit);
+
+    //-----------------------------------------------
+    // Setup Navigation events
+    Gicon.click("btnNavBack", function() {
+        Geof.menuctrl.gotoMenu(-1);
+    });
+
+    Gicon.click("btnNavForward", function() {
+        Geof.menuctrl.gotoMenu(1);
+    });
+
+    Gicon.click("btnNavHome", function() {
+        Geof.menuctrl.change({type:'menu',name:'main'});
+    });
+
+    Gicon.click("btnSetFavorite", function() {
+        Geof.menuctrl.setHomeMenu(Geof.menuctrl.cur_menu);
+        setMenuIcon(Geof.menuctrl.cur_menu);
+    }, Gicon.DISABLED);
+
+    Gicon.click("btnGoFavorite", function() {
+        Geof.menuctrl.change(Geof.menuctrl.home_menu);
+    });
+
+    Gicon.click('btnQuickSearch', function() {Geof.menuctrl.change({type:'view',name:'search'})});
+    Gicon.click('btnQuickUpload', function() {Geof.menuctrl.change({type:'menu',name:'upload'})});
+
+}
+
+function loginCallback(isLoggedIn, err_msg) {
+    Gicon.toggleActive('btnLoginIcon', isLoggedIn);
+    Geof.logged_in = isLoggedIn;
+    if ( isLoggedIn ) {
+        Geof.login.hide();
+        $("#usr_name").text(Geof.session.usrName);
+        Geof.recorder.sendAllItems();
+        Geof.notifier.read();
+        $("#btnLoginIcon").title = "Log Out";
+        Gicon.setEnabled("btnEditProfile",true);
+
+        if (Geof.isFirstShow ) {
+            Geof.menuctrl.setStage("divMenu");
+        } else {
+            Geof.menuctrl.change(Geof.menuctrl.cur_menu)
+        }
+        Geof.isFirstShow = false;
+    } else {
+        $("#usr_name").text("----- -----");
+        Gicon.setEnabled("btnEditProfile",false);
+        Geof.menuctrl.setCurrentMenu({type:'menu',name:'main'});
+        Geof.menuctrl.hideAll();
+        Geof.login.show(err_msg);
+    }
+    setButtonState(isLoggedIn);
+}
+
+function setButtonState(enabled) {
+    for (var indx in Geof.dash.buttons) {
+        Gicon.setEnabled(Geof.dash.buttons[indx],enabled);
+    }
+    if (enabled) {
+        setMenuIcon(Geof.menuctrl.cur_menu);
+    }
+}
+
+function setMenuIcon(menu) {
+    var mcntrl = Geof.menuctrl;
+    Geof.log("setMenuIcon: " + menu.name + ", length: " + mcntrl.history.length + ", loc: " + mcntrl.history_loc);
+    Gicon.setEnabled("btnNavBack", mcntrl.hasHistory());
+    Gicon.setEnabled("btnNavForward", mcntrl.inHistory());
+
+    var hmenu = mcntrl.home_menu;
+    var isFavorite = ((menu.type == hmenu.type) && (menu.name == hmenu.name) && (menu.subview == hmenu.subview) );
+    Gicon.toggleActive('btnSetFavorite', isFavorite);
+}
+
+</script>
+
+</head>
+<body id="mainBody" class="margin_zero" >
+<div id="divHeaderBar" class="headerbar margin_zero">
+    <span class="ui-icon icon_geof_backward iconLeft" id="btnNavBack" title="Navigate Back"></span>
+    <span class="ui-icon icon_geof_forward iconLeft" id="btnNavForward" title="Navigate Forward"></span>
+    <span class="ui-icon icon_geof_home iconLeft" id="btnNavHome" title="Home"></span>
+    <span class="ui-icon icon_geof_important_enable iconLeft" id="btnSetFavorite" title="Set Favorite"></span>
+    <span class="ui-icon icon_geof_go_favorite iconLeft" id="btnGoFavorite" title="Go to Favorite"></span>
+    <hr class="vertical_bar floatLeft">
+    <div class="w220 floatLeft">
+        <span class="ui-icon icon_geof_search iconLeft" id="btnQuickSearch" title="Go to Search"></span>
+        <span class="ui-icon icon_geof_upload iconLeft" id="btnQuickUpload" title="Go to Upload"></span>
+        <span class="ui-icon icon_geof_cancel iconRight" id="btnRemoveQuickLink" title="Remove Quick Link (not inplemented)"></span>
+        <span class="ui-icon icon_geof_new iconRight" id="btnAddQuickLink" title="Add Quick Link (not inplemented)"></span>
+    </div>
+    <hr class="vertical_bar floatLeft">
+    <div class="ml14 w120 floatLeft verticalCenter">
+        <label id="lblWindowWidth" class="notify_default"></label>
+    </div>
+
+    <span class="ui-icon icon_geof_session_enable iconRight" id="btnLoginIcon" title="Login"></span>
+    <span class="ui-icon icon_geof_notsecure_enable iconRight" id="btnEncryptRequests" title="Encrypt All Requests"></span>
+    <span class="ui-icon icon_geof_transmit iconRight" id="btnTransmit" title="Connected to Server"></span>
+    <span class="iconRight margin_zero">
+        <div class="floatLeft w40m0 textRight"><label class="notify_default" id="lblNotificationCount">0</label></div>
+        <span class="ui-icon icon_geof_notify floatLeft" id="iconNotifications" title="Notifications"></span>
+    </span>
+    <span class="ui-icon icon_geof_recorder_enable iconRight" id="btnViewRecorder" title="View Recorder"></span>
+    <div class="floatRight">
+        <label class="stdlabelSm floatLeft mt12" id="usr_name"></label>
+        <span class="ui-icon icon_geof_profile iconRight" id="btnEditProfile" title="Edit Profile"></span>
+    </div>
+</div>
+<div id="divPanel" class="panel">
+</div>
+<div id="divMenu" class="menu"></div>
+<div id="divView" class="view">
+    <div id="leftViewSlideout" class="leftslide"></div>
+</div>
+</body>
+</html>

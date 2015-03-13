@@ -1,0 +1,172 @@
+<div class="view" id="search_view">
+    <div class="floatLeft" id="searchDetailPanel">
+
+        <div class="buttonBar no_border_search_section">
+            <label class="search_middle floatLeft">Searches
+            <select id="sltSearches" class="default"></select></label>
+            <span class="ui-icon icon_geof_refresh_enable iconLeft" id="btnRefreshSearch" title="Reload Searches"></span>
+            <span class="ui-icon icon_geof_save iconLeft" id="btnSaveSearch" title="Save Search"></span>
+            <span class="ui-icon icon_geof_new_enable iconLeft" id="btnNewSearch"  title="New Search"></span>
+            <span class="ui-icon icon_geof_copy iconLeft" id="btnCopySearch" title="Copy Search"></span>
+            <span class="ui-icon icon_geof_discard iconLeft" id="btnDiscardSearch" title="Delete Search"></span>
+        </div>
+
+        <div class="search_section table">
+            <label class="search_middle w52">Media</label>
+            <label id="searchMediaList" class="searchMediaList"/>
+            <span class="ui-icon icon_geof_cancel_enable iconLeft" id="btnClearSearchMedia"  title="Clear Search Media"></span>
+
+            <label id="searchResults" class="searchResults"/>
+            <span class="ui-icon icon_geof_search iconRight" id="btnRunSearch" title="Run Search"></span>
+        </div>
+        <div class="search_section">
+            <div class="default">
+                <label class="floatLeft default">Name</label>
+                <input type='text' id='searchName' class="floatLeft w220 textpad" />
+                <input type='text' id='searchId' class="floatRight w52 textpad"/>
+                <label class="floatRight default">ID</label>
+            </div>
+            <div class="default desc_table">
+                <label class="floatLeft default">Description / Notes</label>
+                <textarea id='searchNotes' class="search" ></textarea>
+            </div>
+        </div>
+
+        <div class="search_section">
+            <div class="search_section_row">
+                <label class="search_top_title floatLeft">Spatial</label>
+                <label class="search_error floatLeft" id="lblSpatialError"></label>
+                <input type="checkbox" id="useSpatial" class="searchUse" checked>
+                <label class="searchUse" for="useSpatial">Use</label>
+            </div>
+            <div id="spatialSubSection">
+                <div class="search_section_row">
+                    <label class="search_top floatLeft">Search Type:</label>
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="spatialType" id="rbBoundingBox" value="0" class="floatLeft" checked>
+                        Bounding Box</label>
+
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="spatialType" id="rbCenterPoint" value="1" class="floatLeft">
+                        Center Point</label>
+                    <span class="ui-icon icon_geof_map_enable floatLeft pointer ml20" id="btnSearchSpatialMap" title="Show Map"></span>
+
+                </div>
+                <div class="search_section_row">
+                    <label class="search_top floatLeft width_spatial" id="lblSearchSpatial" >Upper Right:</label>
+                    <input type='text' id='spatialUpperRight' class="search_text_top floatLeft textpad spatial" />
+
+                    <label id="lblSearchDistance" class="search_top_disabled floatLeft">Dist:</label>
+                    <input type='text' id='spatialDistance' style="width:100px" class="floatLeft"disabled />
+                    <label class="search_top_disabled floatLeft">km</label>
+                </div>
+                <div class="search_section_row">
+                    <label id="lblSearchLowerLeft" class="search_top floatLeft width_spatial" >Lower Left:</label>
+                    <input type='text' id='spatialLowerLeft' class='search_text_top floatLeft textpad spatial' />
+                </div>
+            </div>
+        </div>
+
+        <div class="search_section">
+            <div class="search_section_row">
+                <label class="search_top_title floatLeft">Temporal</label>
+                <input type="checkbox" id="useTemporal" class="searchUse" checked>
+                <label class="search_error floatLeft" id="lblTemporalError"></label>
+                <label class="searchUse" for="useTemporal">Use</label>
+            </div>
+            <div id="temporalSubSection">
+                <div class="search_section_row">
+                    <label class="search_top floatLeft">Search Type</label>
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="temporalType" id="rbUseBoth" value="0" class="floatLeft" checked>
+                        Use Both</label>
+
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="temporalType" id="rbAfterOnly" value="1" class="floatLeft">
+                        After Only</label>
+
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="temporalType" id="rbBeforeOnly" value="2" class="floatLeft">
+                        Before Only</label>
+                </div>
+
+                <div class="search_section_row">
+                    <span>
+                    <label class="search_middle floatLeft">After:
+                        <input type='text' id='searchAfterDate' class="text_datetime textpad"  /></label>
+                    <label class="search_middle floatLeft">Before:
+                        <input type='text' id='searchBeforeDate' class="text_datetime textpad"  /></label>
+                    </span>
+                    <span class="ui-icon icon_geof_cancel_enable floatLeft pointer" id="btnResetTemporal" title="Reset Temporal"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search_section">
+            <div class="search_section_row">
+                <label class="search_top_title floatLeft">Keywords</label>
+                <input type="checkbox" id="useKeywords" class="searchUse" checked>
+                <label class="search_error floatLeft" id="lblKeywordError"></label>
+                <label class="searchUse" for="useKeywords">Use</label>
+            </div>
+            <div id="keywordsSubSection">
+                <div class="search_section_row">
+                    <label class="search_top floatLeft">Search Type:</label>
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="keywordMatch" id="rbAnyWord" value="1" class="floatLeft" checked>
+                        Any Word
+                    </label>
+                    <label class="search_top floatLeft">
+                        <input type="radio" name="keywordMatch" id="rbExactMatch" value="0" class="floatLeft">
+                        Exact Match
+                    </label>
+                </div>
+
+                <div class="search_section_row">
+                    <label class="search_middle floatLeft">Words:</label>
+                    <input type='text' id='searchKeywords' class="floatLeft textpad w320"/>
+                    <span class="ui-icon icon_geof_cancel_enable floatLeft pointer" id="btnSearchResetKeywords" title="Reset Keyword"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search_section">
+            <div class="search_section_row">
+                <label class="search_top_title floatLeft">Projects</label>
+                <input type="checkbox" id="useProjects" class="searchUse" checked>
+                <label class="searchUse" for="useProjects">Use</label>
+            </div>
+            <div id="projectSubSection" class="search_section_row">
+                <label class="search_top floatLeft">Include</label>
+                <select id="sltProjects" class="searchProjects" size="5" multiple></select>
+                <span class="ui-icon icon_geof_cancel_enable floatLeft pointer" id="btnSearchResetProjects" title="Deselect all Projects"></span>
+
+                <div class="search_section_row">
+                    <hr class="mt4">
+                    <label class="floatLeft search_middle">New</label>
+                    <input type="text" id="searchProjectName" class="floatLeft srch_project">
+                    <span class="ui-icon icon_geof_save iconRight" id="btnSearchProjectSave" title="Save Project"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="searchMediaTypes" class="mediaTypePopup">
+            <input type="checkbox" name="searchMediaTypesCB" value="0"/> Photo<br>
+            <input type="checkbox" name="searchMediaTypesCB" value="1"/> Video<br>
+            <input type="checkbox" name="searchMediaTypesCB" value="5"/> Track<br>
+            <input type="checkbox" name="searchMediaTypesCB" value="2"/> Audio<br>
+            <input type="checkbox" name="searchMediaTypesCB" value="3"/> Doc
+        </div>
+    </div>
+    <div class="floatLeft searchTargets" id="searchTargets">
+        <span class="ui-icon icon_geof_circleclose_enable margin2 iconRight closeView" id="btnclosesearchview" title="Close Search View"></span>
+        <span class="ui-icon icon_geof_arrowleft_enable mb6 iconPointer" id="toggleSearchDetail" title="Toggle Search Panel"></span>
+         <span class="ui-icon icon_geof_location margin_zero iconPointer" id="btnSearch_map" title="Show data on map"></span>
+        <span class="ui-icon icon_geof_table32 margin_zero iconPointer" id="btnSearch_datagrid" title="Show data in table"></span>
+        <span class="ui-icon icon_geof_timeline margin_zero iconPointer" id="btnSearch_timeline" title="Show data on timeline"></span>
+        <span class="ui-icon icon_geof_selectAll margin_zero iconPointer" id="btnSearch_thumbnail" title="Show data in image grid"></span>
+
+    </div>
+    <div class="floatLeft searchResults" id="searchResultsView"></div>
+</div>

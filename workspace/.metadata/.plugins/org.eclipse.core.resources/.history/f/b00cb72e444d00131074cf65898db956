@@ -1,0 +1,606 @@
+package org.geof.dpl;
+
+import org.geof.log.Logger;
+import org.geof.util.JsonUtil;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class GeofInstaller {
+
+	public int OKAY = 0, STDIN = 1, STDERR = 2;
+
+	JSch _jsch = null;
+	Session _session = null;
+	String _user = null;
+	String _host = null;
+	String _pwd = null;
+	String _sudo_pwd = null;
+	int _port = 22;
+	int _timeout = 3000;
+	int _maxtries = 1;
+	int _sleeptime = 2000;
+
+	boolean _print_cmd = true;
+	
+
+	// ------------------------------------------
+	public GeofInstaller(String host, String user, String pwd) {
+		_host = host;
+		_user = user;
+		_pwd = pwd;
+		_sudo_pwd = pwd;
+	}
+
+	public GeofInstaller(String host, String user, String pwd, int max_tries) {
+		_host = host;
+		_user = user;
+		_pwd = pwd;
+		_sudo_pwd = pwd;
+		_maxtries = max_tries;
+	}
+	
+	// ------------------------------------------
+	public GeofInstaller(JSONObject config) throws JSONException {
+			_host = config.getString("host");
+			_user = config.getString("user");
+			_pwd = config.getString("pwd");
+			_sudo_pwd = config.getString("pwd");
+			_port = config.optInt("port", _port);
+			_maxtries = config.optInt("maxtries", _maxtries);
+			_sleeptime = config.optInt("sleeptime", _sleeptime);
+	}
+	
+	// ------------------------------------------
+	public ReturnObj connect() {
+		boolean connected = false;
+		try {
+
+			int tries = 0;
+			_jsch = new JSch();
+			Session session = null; 
+
+			java.util.Properties props = new java.util.Properties();
+			props.put("StrictHostKeyChecking", "no");
+			while (!connected && tries < _maxtries) {
+				try {
+					session = _jsch.getSession(_user, _host, _port);
+					session.setConfig(props);
+					session.setPassword(_pwd);
+					session.connect(_timeout);
+					connected = true;
+				} catch (JSchException jsche) {
+					tries += 1;
+					Thread.sleep(_sleeptime);
+				}
+			}
+			if (connected) {
+				_session = session;
+			}
+
+		} catch (Exception e) {
+			return ReturnObj.getError(e.getMessage());
+		}
+		return ReturnObj.getOkay();
+	}
+
+	// ------------------------------------------
+	public void disconnect() {
+		if (_session != null) {
+			_session.disconnect();
+		}
+	}
+
+	// ------------------------------------------
+	public ReturnObj run_install(String job_file, JSONArray cleanup_cmds) {
+		
+		JSONObject job = null;
+		ReturnObj ro;
+		try {
+			job = JsonUtil.getJObject(job_file, null, null);
+		} catch (Exception e) {
+			return ReturnObj.getError(e.getMessage());
+		}
+
+		JSONArray dpkgs = job.optJSONArray("packages");
+		for (int indx = 0; indx < dpkgs.length(); indx++) {
+			String pkg = dpkgs.optString(indx, "");
+			ro = install_dpkg(pkg);
+			if (! ro.success ) {
+				return ReturnObj.getError("Failed to install pkg: " + pkg);
+			}
+		}
+
+		JSONArray checks = job.optJSONArray("checks");
+		if (checks != null) {
+			Logger.debug("Running pre-checks...");
+			for (int indx = 0; indx < checks.length(); indx++) {
+				JSONObject check = checks.optJSONObject(indx);
+				String funcName = check.optString("func", null);
+				JSONObject params = check.optJSONObject("params");
+				if (funcName.equalsIgnoreCase("is_running")) {
+					ro = is_running(params);
+					if (! ro.success) {
+						return ReturnObj.getError("Failed checks.. exiting ");
+					}
+				}
+			}
+			Logger.debug("... passed all pre-checks");
+		}
+
+		String remote_dir = "/home/" + _user + "/";
+
+		JSONArray rcp_files = job.optJSONArray("rcp_files");
+
+		if (rcp_files != null) {
+			Logger.debug("Rcp files to client...");
+			String local_dir = job.optString("rcp_dir", "");
+
+			for (int indx = 0; indx < rcp_files.length(); indx++) {
+				String filename = rcp_files.optString(indx, "");
+				ro = this.scp_to(local_dir + filename, remote_dir + filename);
+				if (! ro.success) {
+					return ReturnObj.getError( "Failed RCP for " + filename);
+				}
+			}
+			Logger.debug("... all files rcp'd");
+		}
+
+		JSONArray commands = job.optJSONArray("commands");
+		
+		if (commands != null) {
+			Logger.debug("Issuing commands...");
+			for (int indx = 0; indx < commands.length(); indx++) {
+				String cmd = commands.optString(indx, null);
+				if (cmd != null) {
+					ro = exec(cmd);
+					if (! ro.success) {
+						return ro;
+					}
+				}
+			}
+
+			Logger.debug("... all commands issued");
+		}
+		if (rcp_files != null) {
+			Logger.debug("Removing rcp files...");
+			ro = this.delete_files(rcp_files, remote_dir); 
+			if (! ro.success) {
+				Logger.debug("Error during delete_files - not fatal");
+			}
+			Logger.debug("... rcp files removed");
+		}
+
+		if (cleanup_cmds != null) {
+			Logger.debug("Running cleanup commands...");
+			for (int indx = 0; indx < cleanup_cmds.length(); indx++) {
+				String cmd = cleanup_cmds.optString(indx, "");
+				ro = exec(cmd);
+			}
+			Logger.debug("... cleanup commands complete");
+		}
+		return ReturnObj.getOkay();
+	}
+
+	// ------------------------------------------
+	public ReturnObj install_dpkg(String package_name) {
+		if (package_name == null || package_name.length() == 0) {
+			return ReturnObj.getOkay();
+		}
+
+		if (package_name.startsWith("#", 0)) {
+			return ReturnObj.getOkay();
+		}
+
+		String cmd = "dpkg-query -W -f='${Status}' " + package_name;
+
+		ReturnObj ro = exec(cmd, 60000);
+		String rtn = ro.text;
+		if (ro.success) {
+			if (rtn != null && rtn.indexOf("install ok installed") == -1) {
+				// Logger.debug(stderr.read());
+				cmd = "sudo apt-get -y install " + package_name;
+				ro = this.exec(cmd);
+				Logger.debug(" --- " + cmd + " : " + rtn);
+			}
+		}
+		return ro;
+
+	}
+
+	// ------------------------------------------
+	public ReturnObj delete_files(JSONArray files, String remote_dir) {
+		try {
+			for (int indx = 0; indx < files.length(); indx++) {
+				String filename = files.getString(indx);
+				String cmd = "rm -f " + remote_dir + filename;
+				ReturnObj ro = exec(cmd);
+				if (! ro.success) {
+					ro.error = "Failed to delete remote file: " + remote_dir + filename;
+					return ro;
+				}
+			}
+			return ReturnObj.getOkay();
+		} catch (Exception e) {
+			return  ReturnObj.getError("Error delete_files: " + e.getMessage());
+		}
+	}
+
+	// ------------------------------------------
+	public ReturnObj delete_directory(String directory) {
+		try {
+			String cmd = "sudo rm -rf " + directory;
+			ReturnObj ro = exec(cmd);
+			if (! ro.success) {			
+				ro.error = "Failed to delete dommain directory: " + directory;
+			}			
+			return ro;
+		} catch (Exception e) {
+			return  ReturnObj.getError("Error delete_files: " + e.getMessage());
+		}
+	}
+
+	// ------------------------------------------
+	public ReturnObj create_directory(String remote_dir) {
+		try {
+			String cmd = "mkdir " + remote_dir;
+			ReturnObj ro = exec(cmd);
+			if (! ro.success) {
+				ro.error = "Failed to make remote directory: " + remote_dir;
+			}
+			return ro;
+		} catch (Exception e) {
+			return ReturnObj.getError("Error create_directory: " + e.getMessage());
+		}
+	}
+
+	public ReturnObj copy_file(String from_file, String to_file) {
+		try {
+			String cmd = "cp " + from_file + " " + to_file;
+			ReturnObj ro = exec(cmd);
+			if (! ro.success) {
+				ro.error = "Failed to copy remote file: " + from_file + " " + to_file;
+			}
+			return ro;
+		} catch (Exception e) {
+			return ReturnObj.getError("Error copy_file: " + e.getMessage());
+		}
+	}
+
+	// ------------------------------------------
+	public ReturnObj is_running(JSONObject params) {
+		try {
+			String process = params.getString("proc");
+			int sleeptime = params.optInt("sleeptime", 2);
+			int totaltries = params.optInt("totaltries", 60);
+			boolean invert = params.optBoolean("invert",false);
+
+			String cmd = "ps -ef | grep \"" + process + "\" | grep -v \"grep\" |wc -l";
+			int tries = 0;
+
+			boolean keep_checking = true;
+			while (keep_checking) {
+				ReturnObj ro = exec(cmd);
+				String stdin = ro.text;
+				if ( stdin.length() > 1) {
+					stdin = stdin.substring(0,1);
+				}
+				int proc_count = Integer.parseInt(stdin);
+				if (invert) {
+					if (proc_count == 0) {
+						keep_checking = false;
+					}
+				} else {
+					if (proc_count > 0) {
+						keep_checking = false;
+					}
+				}
+				if (keep_checking) {
+					tries++;
+					if (tries < totaltries) {
+						Thread.sleep(sleeptime);
+					} else {
+						keep_checking = false;
+					}
+				}
+			}
+			return new ReturnObj(tries < totaltries);
+			
+		} catch (Exception e) {
+			return ReturnObj.getError("Error is_running: " + e.getMessage());
+		}
+	}
+
+	
+	public ReturnObj exec(String cmd) {
+		long wait_time = 300000; // 5 minutes default
+		return this.exec(cmd, wait_time);
+	}
+	
+	// ------------------------------------------
+	public ReturnObj exec(String cmd, long wait_timeout) {
+		try {
+			Channel channel = _session.openChannel("exec");
+			boolean isSudo = false;
+			int exit_status = 0;
+			int cur_wait = 0;
+			
+			if (cmd.startsWith("sudo ")) {
+				cmd = "sudo -S -p '' " + cmd.substring(5);
+				isSudo = true;
+			}
+			Logger.debug(cmd);
+			((ChannelExec) channel).setCommand(cmd);
+
+			InputStream stdin = channel.getInputStream();
+			OutputStream out = channel.getOutputStream();
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			PrintStream stderr = new PrintStream(baos);
+			((ChannelExec) channel).setErrStream(stderr);
+
+			channel.connect();
+			if (isSudo) {
+				out.write((_sudo_pwd + "\n").getBytes());
+				out.flush();
+			}
+
+			boolean complete = false;
+			
+			while (! complete && (cur_wait < wait_timeout)) {
+				if (channel.isClosed()) {
+					exit_status = channel.getExitStatus();
+					complete = true;
+				}
+				if (! complete) {
+					try {
+						Thread.sleep(_sleeptime);
+						cur_wait += _sleeptime;
+					} catch (Exception ee) {
+					}
+				}
+			}
+
+			channel.disconnect();
+			if (complete) {
+				String response = getString(stdin);
+				String error = baos.toString("UTF-8");
+				return new ReturnObj(true,error, response, exit_status);
+			} else {
+				return ReturnObj.getError("Command timed out - seconds = " + cur_wait );
+			}
+		} catch (Exception e) {
+			return ReturnObj.getError(e.getMessage() );
+		}
+	}
+
+
+	// ------------------------------------------
+	public ReturnObj scp_to(String localpath, String remotepath) {
+		if (_session == null) {
+			return ReturnObj.getError("GeofInstaller does not have valid session to host" );
+		}
+		FileInputStream fis = null;
+		try {
+			// exec 'scp -t rfile' remotely
+			String command = "scp -t " + remotepath;
+			com.jcraft.jsch.Channel channel = _session.openChannel("exec");
+			((ChannelExec) channel).setCommand(command);
+
+			// get I/O streams for remote scp
+			OutputStream out = channel.getOutputStream();
+			InputStream in = channel.getInputStream();
+			channel.connect();
+
+			if (checkAck(in) != 0) {
+				return ReturnObj.getError("Failed checkAck");
+			}
+
+			File _lfile = new File(localpath);
+
+			long filesize = _lfile.length();
+			command = "C0644 " + filesize + " ";
+			if (localpath.lastIndexOf('/') > 0) {
+				command += localpath.substring(localpath.lastIndexOf('/') + 1);
+			} else {
+				command += localpath;
+			}
+			command += "\n";
+			out.write(command.getBytes());
+			out.flush();
+			if (checkAck(in) != 0) {
+				return ReturnObj.getError("Failed checkAck" );
+			}
+
+			// send a content of lfile
+			fis = new FileInputStream(localpath);
+//			long totlen = 0;
+			DateFormat df = new SimpleDateFormat("HH:mm:ss");
+//			DecimalFormat nf = new DecimalFormat("#.##");
+			Logger.debug("Starting upload at " + df.format(new Date()));
+			
+			byte[] buf = new byte[4096];
+			while (true) {
+				int len = fis.read(buf, 0, buf.length);
+				if (len <= 0)
+					break;
+				out.write(buf, 0, len); // out.flush();
+//				totlen += len;
+			}
+			Logger.debug("... upload complete at " + df.format(new Date()));
+			fis.close();
+			fis = null;
+
+			buf[0] = 0;
+			out.write(buf, 0, 1);
+			out.flush();
+			if (checkAck(in) != 0) {
+				return ReturnObj.getError("Failed checkAck" );
+			}
+			out.close();
+			channel.disconnect();
+			return ReturnObj.getOkay();
+		} catch (Exception e) {
+			return ReturnObj.getError( e.getMessage() );
+		} finally {
+			try {
+				if (fis != null)
+					fis.close();
+			} catch (Exception ee) {
+			}
+		}
+	}
+
+	public ReturnObj scp_from(String remotepath, String localpath) {
+		if (_session == null) {
+			ReturnObj.getError("GeofInstaller does not have valid session to host" );
+		}
+		 FileOutputStream fos=null;
+		try {
+			
+			String prefix=null;
+		      if(new File(localpath).isDirectory()){
+		        prefix=localpath+File.separator;
+		      }
+		      
+			// exec 'scp -f rfile' remotely
+			String command = "scp -f " + remotepath;
+			Channel channel = _session.openChannel("exec");
+			((ChannelExec) channel).setCommand(command);
+
+			// get I/O streams for remote scp
+			OutputStream out = channel.getOutputStream();
+			InputStream in = channel.getInputStream();
+			channel.connect();
+
+			byte[] buf = new byte[1024];
+
+			// send '\0'
+			buf[0] = 0;
+			out.write(buf, 0, 1);
+			out.flush();
+
+			while (true) {
+				int c = checkAck(in);
+				if (c != 'C') {
+					break;
+				}
+
+				// read '0644 '
+				in.read(buf, 0, 5);
+
+				long filesize = 0L;
+				while (true) {
+					if (in.read(buf, 0, 1) < 0) {
+						// error
+						break;
+					}
+					if (buf[0] == ' ')
+						break;
+					filesize = filesize * 10L + (long) (buf[0] - '0');
+				}
+
+				String file = null;
+				for (int i = 0;; i++) {
+					in.read(buf, i, 1);
+					if (buf[i] == (byte) 0x0a) {
+						file = new String(buf, 0, i);
+						break;
+					}
+				}
+
+				// Logger.debug("filesize="+filesize+", file="+file);
+
+				// send '\0'
+				buf[0] = 0;
+				out.write(buf, 0, 1);
+				out.flush();
+
+				// read a content of lfile
+				fos = new FileOutputStream(prefix == null ? localpath : prefix + file);
+				int foo;
+				while (true) {
+					if (buf.length < filesize)
+						foo = buf.length;
+					else
+						foo = (int) filesize;
+					foo = in.read(buf, 0, foo);
+					if (foo < 0) {
+						// error
+						break;
+					}
+					fos.write(buf, 0, foo);
+					filesize -= foo;
+					if (filesize == 0L)
+						break;
+				}
+				fos.close();
+				fos = null;
+
+				if (checkAck(in) != 0) {
+					return ReturnObj.getError("Failed checkAck" );
+				}
+
+				// send '\0'
+				buf[0] = 0;
+				out.write(buf, 0, 1);
+				out.flush();
+			}
+
+			channel.disconnect();
+			return ReturnObj.getOkay();
+		} catch (Exception e) {
+			return ReturnObj.getError( e.getMessage() );
+		} finally {
+			 try{if(fos!=null)fos.close();}catch(Exception ee){}
+		}
+	}
+
+
+	// ------------------------------------------
+	private static int checkAck(InputStream in) throws IOException {
+		int b = in.read();
+		// b may be 0 for success,
+		// 1 for error,
+		// 2 for fatal error,
+		// -1
+		if (b < 1) {
+			return b;
+		}
+
+		if (b == 1 || b == 2) {
+			StringBuffer sb = new StringBuffer();
+			int c;
+			do {
+				c = in.read();
+				sb.append((char) c);
+			} while (c != '\n');
+			if (b == 1) { // error
+				System.out.print(sb.toString());
+			}
+			if (b == 2) { // fatal error
+				System.out.print(sb.toString());
+			}
+		}
+		return b;
+	}
+}

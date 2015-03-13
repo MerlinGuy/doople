@@ -1,0 +1,30 @@
+<div id="editAuthcode" title="Edit Authcode " class="editAuthcode font12" >
+    <div class="dialogHeader">
+        <span class="ui-icon icon_geof_save iconRight" id="edit_authcode_save" title="Save New Authcode"></span>
+        <label class="editAuthcode" >ID:</label> <label id="authcode_id" /> </label>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Code:</label><input type="text" id="authcode_guid" size="44"/>
+        <span class="ui-icon icon_geof_download_enable iconInline auth_validate" id="downloadNewAuthcode" title="Download New Authcode"></span>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">User:</label>
+        <select id="authcode_usrid" size="1" class="authcodeUsr auth_validate"></select>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Start Date:</label><input class="auth_validate" type="text" id="authcode_startdate" size="24" >
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">End Date:</label><input class="auth_validate" type="text" id="authcode_enddate" size="24" >
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Max Uses:</label><input class="auth_validate" type="text" id="authcode_maxuses" size="4" >
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Used Count:</label><input type="text" id="authcode_usedcount" size="4" readonly>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Last Use:</label>
+        <input type="text" id="authcode_lastused" size="24" readonly>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div id="trackDialog" title="Track Tool Viewer" class="trackDialog">
+    <div id="tvButtonBar" class="buttonBar">
+        <span class="ui-icon icon_geof_table32_enable iconLeft" id="btnTVShowList" title="View points in table"></span>
+        <span class="ui-icon icon_geof_location_active iconLeft" id="btnTVShowMap" title="View track on map"></span>
+        <span class="ui-icon icon_geof_crop_enable iconLeft" id="btnTVConfineTrack" title="Confine histogram to map"></span>
+
+        <span class="ui-icon icon_geof_refresh_enable iconRight" id="tvRefreshDataView" title="Refresh data view"></span>
+        <div class="floatRight">
+            <label>Type</label>
+            <select id="tvDataType">
+                <option value="0">Speed</option>
+                <option value="1">Time</option>
+            </select>
+            <label>Max:</label>
+            <input type="text" id="tvDataLimit" value="35" size=3 />
+        </div>
+    </div>
+    <div class="trackProfile" id="barTrackProfile">
+        <div id="canvasTrackProfile" class="canvasTrackProfile"></div>
+        <div id="sliderTrackProfile2" class="sliderTrackProfile2"></div>
+        <div id="sliderTrackProfile1" class="sliderTrackProfile"></div>
+    </div>
+    <div id="tvMapHolder" class="tvMapHolder">test</div>
+    <div id="tvListHolder" class="tvListHolder">
+        <table id="tvTrackData" class='tvTrackData'></table>
+        <div id="tvTrackDataPager"></div>
+    </div>
+</div>

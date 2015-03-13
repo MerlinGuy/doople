@@ -1,0 +1,69 @@
+div.ui-datepicker{
+    font-size:11px;
+}
+
+#sliderTrackProfile2 .ui-state-default {
+    border: none;
+    width: 24px;
+    height: 24px;
+    background: transparent url(../img/symbol/triangle.png) no-repeat 0 0;
+}
+#sliderTrackProfile2 .ui-slider-handle {
+    left: 0;
+    margin-bottom: -12px;
+    margin-left: -6;
+}
+
+#sliderVideoAnnotation .ui-state-default {
+    border: none;
+    width: 24px;
+    height: 24px;
+    background: transparent url(../img/symbol/triangle.png) no-repeat 0 0;
+}
+#sliderVideoAnnotation .ui-slider-handle {
+    left: 0;
+    margin-bottom: -12px;
+    margin-left: -6;
+}
+
+#sliderTrackProfile1 .ui-state-default {
+    border: none;
+    width: 24px;
+    height: 24px;
+    background: transparent url(../img/symbol/triangle.png) no-repeat 0 0;
+}
+#sliderTrackProfile1 .ui-slider-handle {
+    left: 0;
+    margin-bottom: -12px;
+    margin-left: -6;
+}
+
+.ui-jqgrid tr.jqgrow td {
+    height: 20px !important;
+}
+.ui-dialog .ui-dialog-titlebar {
+    padding: .1em .3em;
+    position: relative;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: .9em;
+}
+
+.ui-dialog .ui-dialog-content {
+    position: relative;
+    border: 0;
+    padding: .2em;
+    background: 0;
+    overflow: auto;
+}
+
+#profile_tabs .ui-widget-content {
+    /*border:none;*/
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0.5em 0.8em !important;
+}
+
+.jqgfirstrow {
+    border-spacing: 0px;
+}

@@ -1,0 +1,29 @@
+<div id="editUsr" title="Edit User" class="hidden font12">
+    <div class="dialogHeader">
+        <span class="ui-icon icon_geof_save_enable geof_enabled iconRight" id="edit_usr_save" title="Save User Changes"></span>
+        <label class="stdlabel" >ID:<label id="usr_id"></label></label>
+    </div>
+    <label class="stdlabel">Login:</label><input type="text" id="usr_loginname" size="18" ><br>
+    <div class="usr_pwd">
+        <span class="ui-icon icon_geof_save_enable iconRight" id="edit_usr_updatepwd" title="Update User Password"></span>
+        <label class="stdlabel">Password:</label><input type="password" id="usr_password" size="12" class="mt8" >
+        <label class="stdlabel">Confirm Password:</label><input type="password" id="usr_password2" size="12" >
+    </div>
+    <HR>
+    <label class="stdlabel">First Name:</label><input type="text" id="usr_firstname" size="24" ><br>
+    <label class="stdlabel">Last Name:</label><input type="text" id="usr_lastname" size="24" ><br>
+    <label class="stdlabel">Initials:</label><input type="text" id="usr_initials" size="4" ><br>
+    <label class="stdlabel">Email:</label><input type="text" id="usr_email" size="40" ><br>
+    <label>Notes:</label><br>
+    <textarea maxlength="512" id="usr_notes" cols="50" rows="4"></textarea><br>
+    <label class="stdlabel">Status:</label>
+    <select size="1" class="font12" id="usr_statusid" >
+        <option value="1" selected>Normal</option>
+        <option value="2">Adjusted</option>
+        <option value="3">Disabled</option>
+        <option value="4">Locked Out</option>
+    </select><br>
+    <label class="stdlabel">Attempts:</label><input type="text" id="usr_attempts" size="4"><br>
+    <label class="stdlabel">Last Attempt:</label>
+    <input type="text" id="usr_lastattempt" size="40" value="" readonly>
+</div>

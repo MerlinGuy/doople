@@ -1,0 +1,28 @@
+<div class="subDlgWrapper" id="audit_list">
+    <div class="buttonBar" id="#audit_buttonBar">
+        <span class="header">
+            <label class="stdlabel">Truncate Before&nbsp;</label><input type="text" id="adt_truncate_before" size="22" class="textpad">
+        </span>
+        <span class="ui-icon icon_geof_discard iconLeft" id="btnDiscardAudit" title="Truncate Audit Table"></span>
+        <span class="ui-icon icon_geof_refresh_enable iconRight" id="btnRefreshAudit" title="Refresh Request Audit"></span>
+    </div>
+    <div class="buttonBar" id="#audit_buttonBar">
+        <span class="floatLeft">
+            <label class="stdlabel">Usr Id</label><input type="text" id="adt_usrid" size="8" class="textpad">
+            <label class="stdlabel">Session</label><input type="text" id="adt_sessionid" size="12" class="textpad">
+            <label class="stdlabel">After</label><input type="text" id="adt_after" size="22" class="textpad">
+            <label class="stdlabel">Before</label><input type="text" id="adt_before" size="22" class="textpad">
+        </span>
+    </div>
+    <div class="list_header">
+        <label class="hdrLabelLeft flw110">Request</label>
+        <label class="hdrLabelLeft flw60">Action</label>
+        <label class="hdrLabelLeft flw40">As</label>
+        <label class="hdrLabelLeft flw100">User</label>
+        <label class="hdrLabelLeft flw200">Session</label>
+        <label class="hdrLabelLeft flw80">Run Date</label>
+    </div>
+    <div class="pnl_listSuperWide" id="pnl_listBlock" >
+        <ol id="olAudit"></ol>
+    </div>
+</div>

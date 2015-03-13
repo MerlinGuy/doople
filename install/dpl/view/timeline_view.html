@@ -1,0 +1,56 @@
+<div class="viewer_container" id="timeline_container">
+
+    <div class="buttonBar" id="timelineBar">
+        <span class="ui-icon icon_geof_settingsSlide_enable iconLeft" id="btnTimelineSettings" title="Update Display Settings"></span>
+        <span class="ui-icon icon_geof_movefirst iconLeft" id="btnTimelineMoveFirst" title="Move to First Event"></span>
+        <span class="ui-icon icon_geof_movelast iconLeft" id="btnTimelineMoveLast" title="Move to Last Event"></span>
+    </div>
+    <div id="timeline" class="timeline"></div>
+
+    <div id="timelineSettings" class="slidedown hidden">
+        <div class="buttonBar">
+            <label class="header2 floatLeft">Timeline Band Settings</label>
+            <span class="ui-icon icon_geof_cancel_enable iconFullRight" id="btnCloseTimelineSettings" title="Close Settings"></span>
+            <span class="ui-icon icon_geof_save_enable iconRight" id="btnSaveTimelineBands" title="Update Band Settings"></span>
+        </div>
+        <div class="slidedownSection">
+            <label class="header3">Top interval</label>
+            <select id="tl_interval_1" class="mt4">
+                <option value="2">Minute</option>
+                <option value="3">Hour</option>
+                <option value="4" selected>Day</option>
+                <option value="5">Week</option>
+                <option value="6">Month</option>
+                <option value="7">Year</option>
+            </select>
+            <input type="checkbox" id="tl_enable_1" class="floatRight" Title="Enable Band" checked onClick="set_timeline_band_enabled(this)">
+            <label for="tl_enable_1" class="floatRight">Enable</label>
+        </div>
+        <div class="slidedownSection">
+            <label class="header3">Middle interval</label>
+            <select id="tl_interval_2" class="mt4">
+                <option value="2">Minute</option>
+                <option value="3">Hour</option>
+                <option value="4">Day</option>
+                <option value="5">Week</option>
+                <option value="6" selected>Month</option>
+                <option value="7">Year</option>
+            </select>
+            <input type="checkbox" id="tl_enable_2" class="floatRight" Title="Enable Band" checked onClick="set_timeline_band_enabled(this)">
+            <label for="tl_enable_2" class="floatRight">Enable</label>
+        </div>
+        <div class="slidedownSection">
+            <label class="header3">Bottom interval</label>
+            <select id="tl_interval_3" class="mt4">
+                <option value="2">Minute</option>
+                <option value="3">Hour</option>
+                <option value="4">Day</option>
+                <option value="5">Week</option>
+                <option value="6">Month</option>
+                <option value="7" selected>Year</option>
+            </select>
+            <input type="checkbox" id="tl_enable_3" class="floatRight" Title="Enable Band" checked onClick="set_timeline_band_enabled(this)">
+            <label for="tl_enable_3" class="floatRight">Enable</label>
+        </div>
+    </div>
+</div>

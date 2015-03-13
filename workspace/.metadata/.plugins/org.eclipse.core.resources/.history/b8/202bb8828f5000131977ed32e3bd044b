@@ -1,0 +1,7 @@
+package org.geof.dpl.request;
+
+import org.geof.request.DBRequest;
+
+public class MacipRequest extends DBRequest {
+
+}

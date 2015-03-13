@@ -1,0 +1,116 @@
+<div id="thumbnailViewContainer" class="viewer_container">
+    <div class="thmbnllayout" >
+        <div class="buttonBar">
+            <span class="ui-icon icon_geof_discard iconLeft" id="btnThmbnlDiscard" title="Delete selected files"></span>
+            <span class="ui-icon icon_geof_selectAll_enable iconLeft" id="btnThmbnlSelectAll" title="Select all files"></span>
+            <span class="ui-icon icon_geof_deselectAll iconLeft" id="btnThmbnlDeselect" title="Deselect all files"></span>
+        </div>
+
+        <table class="thmbnlWrapper">
+        <tr class="thumbnlGrid">
+            <td class="thmbnlGrid" id="thmbmltd_images">
+                <ol id="ol_thmbnl" ></ol>
+            </td>
+            <td class="sliderBar">
+                <span class="ui-icon icon_geof_up arrowup" id="btnScrollThmbnlUp" title="Scroll Thmbnls up"></span>
+                <div id="thmbnlSlider" class="thmbnlSlider"></div>
+                <span class="ui-icon icon_geof_down arrowdown" id="btnScrollThmbnlDown" title="Scroll Thmbnls Down"></span>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+    <div class="thmbnlInfo">
+        <div class="buttonBar"></div>
+        <div class="defaultSection">
+
+            <div class="viewImageData">
+                <div class="field_line">
+                    <label >Name:</label>
+                    <label id="tbn_originalname" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >ID:</label>
+                    <label id="tbn_id" class="data" ></label>
+                </div>
+                <div class="field_line">
+                    <label >File Size:</label>
+                    <label id="tbn_filesize" class="data"></label>
+                    <label class="mr8 ml40">File Type:</label>
+                    <label id="tbn_filetype" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Create Date:</label>
+                    <label id="tbn_createdate" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Gps Type:</label>
+                    <label id="tbn_geomtype" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Server File:</label>
+                    <label id="tbn_filename" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Status:</label>
+                    <label id="tbn_status" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Storage:</label>
+                    <label id="tbn_storagelocid" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Registered By:</label>
+                    <label id="tbn_registeredby" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Registered Date:</label>
+                    <label id="tbn_registerdate" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >View ID:</label>
+                    <label id="tbn_viewid" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Notes:</label>
+                    <label id="tbn_notes" class="data"></label>
+                </div>
+                <div class="field_line">
+                    <label >Checksum:</label>
+                    <label id="tbn_checksumval" class="data"></label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="defaultSection">
+            <div class="buttonBar">
+                <label class="floatLeft search_top_title">Keywords</label>
+                <span class="ui-icon icon_geof_save iconRight" id="btnThmbnlKeywordsSave" title="Set Selected Keywords"></span>
+            </div>
+            <div class="h36">
+                <input type='text' id='thmbnlKeywords' class="textpad flw290"/>
+                <span class="ui-icon icon_geof_cancel_enable floatLeft pointer" id="btnThmbnlResetKeywords" title="Reset Keyword"></span>
+            </div>
+        </div>
+
+        <div class="defaultSection">
+            <div class="buttonBar">
+                <label class="floatLeft search_top_title">Projects</label>
+                <span class="ui-icon icon_geof_refresh_enable iconRight" id="btnThmbnlReloadProjects"  title="Reload Projects"></span>
+                <span class="ui-icon icon_geof_save iconRight" id="btnThmbnlProjectSave" title="Set Selected Projects"></span>
+            </div>
+            <div class="h80">
+                <select id="thmbnlProjects" class="searchProjects floatLeft" size="4" multiple></select>
+                <span class="ui-icon icon_geof_cancel floatLeft pointer" id="btnThmblResetProjects" title="Deselect all Projects"></span>
+            </div>
+            <div class="uploadNewProject">
+                <hr>
+                <label class="editDefault2 stdlabel floatLeft">New</label>
+                <input type="text" id="newThmblProjectName" class='srch_project floatLeft' >
+                <span class="ui-icon icon_geof_save iconRight" id="btnThmblProjectSave" title="Add New Project"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

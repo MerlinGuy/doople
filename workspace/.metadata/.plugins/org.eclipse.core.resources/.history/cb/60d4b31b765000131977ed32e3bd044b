@@ -1,0 +1,62 @@
+\connect dopple;
+
+---------------------------------------------------------
+--DROP TABLE vm;
+-- Table holds Virtual Machine info
+
+CREATE TABLE vm
+(
+	id serial NOT NULL,
+	name character varying(255) NOT NULL,
+ 	notes character varying(4000),
+ 	statusid smallint,
+	createdate	timestamp without time zone,
+	CONSTRAINT vm_pkey PRIMARY KEY (id),
+	CONSTRAINT vm_unq_name UNIQUE (name)
+)
+WITH (OIDS=FALSE);
+ALTER TABLE vm OWNER TO dpladmin;
+
+---------------------------------------------------------
+--DROP TABLE image;
+-- Table holds image file information
+
+CREATE TABLE image
+(
+	id serial NOT NULL,
+	name character varying(255) NOT NULL,
+	storageloc_id integer,
+	createdate	timestamp without time zone,
+	CONSTRAINT image_pkey PRIMARY KEY (id)
+)
+WITH (OIDS=FALSE);
+ALTER TABLE image OWNER TO dpladmin;
+
+---------------------------------------------------------
+-- Table: vm_image
+-- DROP TABLE vm_image;
+
+CREATE TABLE vm_image
+(
+	vmid		integer,
+	imageid		integer,
+	createdate	timestamp without time zone,
+	CONSTRAINT 	vm_image PRIMARY KEY (vmid, imageid)
+)
+WITH (OIDS=FALSE);
+ALTER TABLE vm_image OWNER TO dpladmin;
+
+---------------------------------------------------------
+--DROP TABLE macip;
+-- Table holds mac address and ip information
+
+CREATE TABLE macip
+(
+	pi integer NOT NULL,
+	macaddress character varying(32) NOT NULL,
+	vm_id integer,
+	CONSTRAINT macip_pkey PRIMARY KEY (id),
+	CONSTRAINT macip_unq_ip UNIQUE (ip)
+)
+WITH (OIDS=FALSE);
+ALTER TABLE macip OWNER TO dpladmin;

@@ -1,0 +1,1271 @@
+
+.icon_geof_refresh {
+    background-image: url(../img/mdpi/1_navigation_refresh.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_refresh_enable {
+    background-image: url(../img/mdpi_enable/1_navigation_refresh.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_refresh_active {
+    background-image: url(../img/mdpi_active/1_navigation_refresh.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_edit {
+    background-image: url(../img/mdpi/5_content_edit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_edit_enable {
+    background-image: url(../img/mdpi_enable/5_content_edit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_edit_active {
+    background-image: url(../img/mdpi_active/5_content_edit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_discard {
+    background-image: url(../img/mdpi/5_content_discard.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_discard_enable {
+    background-image: url(../img/mdpi_enable/5_content_discard.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_discard_active {
+    background-image: url(../img/mdpi_active/5_content_discard.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_copy {
+    background-image: url(../img/mdpi/5_content_copy.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_copy_enable {
+    background-image: url(../img/mdpi_enable/5_content_copy.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_copy_active {
+    background-image: url(../img/mdpi_active/5_content_copy.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_cancel {
+    background-image: url(../img/mdpi/1_navigation_cancel.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_cancel_enable {
+    background-image: url(../img/mdpi_enable/1_navigation_cancel.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_cancel_active {
+    background-image: url(../img/mdpi_active/1_navigation_cancel.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_save {
+    background-image: url(../img/mdpi/5_content_save.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_save_enable {
+    background-image: url(../img/mdpi_enable/5_content_save.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_save_active {
+    background-image: url(../img/mdpi_active/5_content_save.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_new {
+    background-image: url(../img/mdpi/5_content_new.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_new_enable {
+    background-image: url(../img/mdpi_enable/5_content_new.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_new_active {
+    background-image: url(../img/mdpi_active/5_content_new.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_session {
+    background-image: url(../img/mdpi/10_device_access_accounts.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_session_enable {
+    background-image: url(../img/mdpi_enable/10_device_access_accounts.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+.icon_geof_session_active {
+    background-image: url(../img/mdpi_active/10_device_access_accounts.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_fix {
+    background-image: url(../img/mdpi/2_action_fix.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_fix_enable {
+    background-image: url(../img/mdpi_enable/2_action_fix.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_fix_active {
+    background-image: url(../img/mdpi_active/2_action_fix.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_download {
+    background-image: url(../img/mdpi/9_av_download.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_download_enable {
+    background-image: url(../img/mdpi_enable/9_av_download.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_download_active {
+    background-image: url(../img/mdpi_active/9_av_download.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_upload {
+    background-image: url(../img/mdpi/9_av_upload.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_upload_enable {
+    background-image: url(../img/mdpi_enable/9_av_upload.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_upload_active {
+    background-image: url(../img/mdpi_active/9_av_upload.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_location {
+    background-image: url(../img/mdpi/7_location_web_site.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_location_enable {
+    background-image: url(../img/mdpi_enable/7_location_web_site.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_location_active {
+    background-image: url(../img/mdpi_active/7_location_web_site.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_place {
+    background-image: url(../img/mdpi/7_location_place.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_place_enable {
+    background-image: url(../img/mdpi_enable/7_location_place.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_place_active {
+    background-image: url(../img/mdpi_active/7_location_place.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_help {
+    background-image: url(../img/mdpi/2_action_help.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_help_enable {
+    background-image: url(../img/mdpi_enable/2_action_help.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_help_active {
+    background-image: url(../img/mdpi_active/2_action_help.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_cut {
+    background-image: url(../img/mdpi/5_content_cut.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_cut_enable {
+    background-image: url(../img/mdpi_enable/5_content_cut.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_cut_active {
+    background-image: url(../img/mdpi_active/5_content_cut.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_up {
+    background-image: url(../img/mdpi/1-navigation-collapse.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_up_enable {
+    background-image: url(../img/mdpi_enable/1-navigation-collapse.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_up_active {
+    background-image: url(../img/mdpi_active/1-navigation-collapse.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_down {
+    background-image: url(../img/mdpi/1-navigation-expand.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_down_enable {
+    background-image: url(../img/mdpi_enable/1-navigation-expand.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_down_active {
+    background-image: url(../img/mdpi_active/1-navigation-expand.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_bright {
+    background-image: url(../img/mdpi/10_device_access_bightness_low.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_bright_enable {
+    background-image: url(../img/mdpi_enable/10_device_access_bightness_low.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_bright_active {
+    background-image: url(../img/mdpi_active/10_device_access_bightness_low.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_rotateLeft{
+    background-image: url(../img/mdpi/8_images_rotate_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_rotateLeft_enable {
+    background-image: url(../img/mdpi_enable/8_images_rotate_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_rotateLeft_active {
+    background-image: url(../img/mdpi_active/8_images_rotate_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+/* ------------------------------------ */
+.icon_geof_rotateRight {
+    background-image: url(../img/mdpi/8_images_rotate_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_rotateRight_enable {
+    background-image: url(../img/mdpi_enable/8_images_rotate_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_rotateRight_active {
+    background-image: url(../img/mdpi_active/8_images_rotate_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_selectAll {
+    background-image: url(../img/mdpi/5_content_select_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_selectAll_enable {
+    background-image: url(../img/mdpi_enable/5_content_select_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_selectAll_active {
+    background-image: url(../img/mdpi_active/5_content_select_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_deselectAll {
+    background-image: url(../img/mdpi/5_content_deselect_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_deselectAll_enable {
+    background-image: url(../img/mdpi_enable/5_content_deselect_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_deselectAll_active {
+    background-image: url(../img/mdpi_active/5_content_deselect_all.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_send {
+    background-image: url(../img/mdpi/6-social-send-now.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_send_enable {
+    background-image: url(../img/mdpi_enable/6-social-send-now.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_send_active {
+    background-image: url(../img/mdpi_active/6-social-send-now.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_undo {
+    background-image: url(../img/mdpi/5_content_undo.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_undo_enable {
+    background-image: url(../img/mdpi_enable/5_content_undo.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_undo_active {
+    background-image: url(../img/mdpi_active/5_content_undo.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_picture {
+    background-image: url(../img/mdpi/5_content_picture.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_picture_enable {
+    background-image: url(../img/mdpi_enable/5_content_picture.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_picture_active {
+    background-image: url(../img/mdpi_active/5_content_picture.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_map {
+    background-image: url(../img/mdpi/7_location_map.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_map_enable {
+    background-image: url(../img/mdpi_enable/7_location_map.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_map_active {
+    background-image: url(../img/mdpi_active/7_location_map.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_pin {
+    background-image: url(../img/mdpi/9_av_make_available_offline.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_pin_enable {
+    background-image: url(../img/mdpi_enable/9_av_make_available_offline.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_pin_active {
+    background-image: url(../img/mdpi_active/9_av_make_available_offline.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_google_marker {
+    background-image: url(../img/mdpi/google_marker.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_google_marker_enable {
+    background-image: url(../img/mdpi_enable/google_marker.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_google_marker_active {
+    background-image: url(../img/mdpi_active/google_marker.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_camera {
+    background-image: url(../img/mdpi/10-device-access-camera.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_camera_enable {
+    background-image: url(../img/mdpi_enable/10-device-access-camera.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_camera_active {
+    background-image: url(../img/mdpi_active/10-device-access-camera.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_movefirst {
+    background-image: url(../img/mdpi/9_av_previous.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_movefirst_enable {
+    background-image: url(../img/mdpi_enable/9_av_previous.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_movefirst_active {
+    background-image: url(../img/mdpi_active/9_av_previous.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_movelast {
+    background-image: url(../img/mdpi/9_av_next.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_movelast_enable {
+    background-image: url(../img/mdpi_enable/9_av_next.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_movelast_active {
+    background-image: url(../img/mdpi_active/9_av_next.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_settingsSlide {
+    background-image: url(../img/mdpi/2_action_settings.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_settingsSlide_enable {
+    background-image: url(../img/mdpi_enable/2_action_settings.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_settingsSlide_active {
+    background-image: url(../img/mdpi_active/2_action_settings.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_search {
+    background-image: url(../img/mdpi/2_action_search.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_search_enable {
+    background-image: url(../img/mdpi_enable/2_action_search.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_search_active {
+    background-image: url(../img/mdpi_active/2_action_search.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_secure {
+    background-image: url(../img/mdpi/10_device_access_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_secure_enable {
+    background-image: url(../img/mdpi_enable/10_device_access_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_secure_active {
+    background-image: url(../img/mdpi_active/10_device_access_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_notsecure {
+    background-image: url(../img/mdpi/10_device_access_not_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_notsecure_enable {
+    background-image: url(../img/mdpi_enable/10_device_access_not_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_notsecure_active {
+    background-image: url(../img/mdpi_active/10_device_access_not_secure.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_circleclose {
+    background-image: url(../img/mdpi/circle_close.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_circleclose_enable {
+    background-image: url(../img/mdpi_enable/circle_close.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_circleclose_active {
+    background-image: url(../img/mdpi_active/circle_close.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_usergroup {
+    background-image: url(../img/mdpi/usergroup-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_usergroup_enable {
+    background-image: url(../img/mdpi_enable/usergroup-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_usergroup_active {
+    background-image: url(../img/mdpi_active/usergroup-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_certificate {
+    background-image: url(../img/mdpi/certificate-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_certificate_enable {
+    background-image: url(../img/mdpi_enable/certificate-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_certificate_active {
+    background-image: url(../img/mdpi_active/certificate-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_roles {
+    background-image: url(../img/mdpi/roles-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_roles_enable {
+    background-image: url(../img/mdpi_enable/roles-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_roles_active {
+    background-image: url(../img/mdpi_active/roles-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_usr {
+    background-image: url(../img/mdpi/usr-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_usr_enable {
+    background-image: url(../img/mdpi_enable/usr-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_usr_active {
+    background-image: url(../img/mdpi_active/usr-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_keys {
+    background-image: url(../img/mdpi/keys-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_keys_enable {
+    background-image: url(../img/mdpi_enable/keys-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_keys_active {
+    background-image: url(../img/mdpi_active/keys-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_database {
+    background-image: url(../img/mdpi/database-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_database_enable {
+    background-image: url(../img/mdpi_enable/database-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_database_active {
+    background-image: url(../img/mdpi_active/database-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_table {
+    background-image: url(../img/mdpi/table-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_table_enable {
+    background-image: url(../img/mdpi_enable/table-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.icon_geof_table_active {
+    background-image: url(../img/mdpi_active/table-24.png) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_table32 {
+    background-image: url(../img/mdpi/table_32.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_table32_enable {
+    background-image: url(../img/mdpi_enable/table_32.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_table32_active {
+    background-image: url(../img/mdpi_active/table_32.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_timeline {
+    background-image: url(../img/mdpi/10_device_access_time.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_timeline_enable {
+    background-image: url(../img/mdpi_enable/10_device_access_time.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_timeline_active {
+    background-image: url(../img/mdpi_active/10_device_access_time.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_notify {
+    background-image: url(../img/mdpi/5-content-email.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_notify_enable {
+    background-image: url(../img/mdpi_enable/5-content-email.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_notify_active {
+    background-image: url(../img/mdpi_active/5-content-email.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_notify_alert {
+    background-image: url(../img/mdpi_alert/5-content-email.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_markread {
+    background-image: url(../img/mdpi/5_content_read.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_markread_enable {
+    background-image: url(../img/mdpi_enable/5_content_read.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_markread_active {
+    background-image: url(../img/mdpi_active/5_content_read.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_folder {
+    background-image: url(../img/mdpi/folder.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_folder_enable {
+    background-image: url(../img/mdpi_enable/folder.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_folder_active {
+    background-image: url(../img/mdpi_active/folder.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_forward {
+    background-image: url(../img/mdpi/1_navigation_forward.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_forward_enable {
+    background-image: url(../img/mdpi_enable/1_navigation_forward.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_forward_active {
+    background-image: url(../img/mdpi_active/1_navigation_forward.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_backward {
+    background-image: url(../img/mdpi/1_navigation_back.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_backward_enable {
+    background-image: url(../img/mdpi_enable/1_navigation_back.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_backward_active {
+    background-image: url(../img/mdpi_active/1_navigation_back.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_home {
+    background-image: url(../img/mdpi/ic_menu_home.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_home_enable {
+    background-image: url(../img/mdpi_enable/ic_menu_home.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_home_active {
+    background-image: url(../img/mdpi_active/ic_menu_home.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_gps_found {
+    background-image: url(../img/mdpi/10-device-access-location-found.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_gps_found_enable {
+    background-image: url(../img/mdpi_enable/10-device-access-location-found.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_gps_found_active {
+    background-image: url(../img/mdpi_active/10-device-access-location-found.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_arrowleft {
+    background-image: url(../img/mdpi/arrow_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_arrowleft_enable {
+    background-image: url(../img/mdpi_enable/arrow_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_arrowleft_active {
+    background-image: url(../img/mdpi_active/arrow_left.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_arrowright {
+    background-image: url(../img/mdpi/arrow_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_arrowright_enable {
+    background-image: url(../img/mdpi_enable/arrow_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_arrowright_active {
+    background-image: url(../img/mdpi_active/arrow_right.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_recorder {
+    background-image: url(../img/mdpi/recorder_queue.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_recorder_enable {
+    background-image: url(../img/mdpi_enable/recorder_queue.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_recorder_active {
+    background-image: url(../img/mdpi_active/recorder_queue.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_important {
+    background-image: url(../img/mdpi/3-rating-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_important_enable {
+    background-image: url(../img/mdpi_enable/3-rating-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_important_active {
+    background-image: url(../img/mdpi_active/3-rating-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_unimportant {
+    background-image: url(../img/mdpi/3-rating-not-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_unimportant_enable {
+    background-image: url(../img/mdpi_enable/3-rating-not-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_unimportant_active {
+    background-image: url(../img/mdpi_active/3-rating-not-important.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_go_favorite {
+    background-image: url(../img/mdpi/go_favorite.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_go_favorite_enable {
+    background-image: url(../img/mdpi_enable/go_favorite.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_go_favorite_active {
+    background-image: url(../img/mdpi_active/go_favorite.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_track {
+    background-image: url(../img/mdpi/track.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_track_enable {
+    background-image: url(../img/mdpi_enable/track.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_track_active {
+    background-image: url(../img/mdpi_active/track.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_crop {
+    background-image: url(../img/mdpi/8-images-crop.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_crop_enable {
+    background-image: url(../img/mdpi_enable/8-images-crop.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_crop_active {
+    background-image: url(../img/mdpi_active/8-images-crop.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_tag {
+    background-image: url(../img/mdpi/4_collections_labels.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_tag_enable {
+    background-image: url(../img/mdpi_enable/4_collections_labels.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_tag_active {
+    background-image: url(../img/mdpi_active/4_collections_labels.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_profile {
+    background-image: url(../img/mdpi/profile.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_profile_enable {
+    background-image: url(../img/mdpi_enable/profile.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_profile_active {
+    background-image: url(../img/mdpi_active/profile.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_transmit {
+    background-image: url(../img/mdpi/transmit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_transmit_enable {
+    background-image: url(../img/mdpi_enable/transmit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_transmit_active {
+    background-image: url(../img/mdpi_active/transmit.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_pause {
+    background-image: url(../img/mdpi/9_av_pause.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_pause_enable {
+    background-image: url(../img/mdpi_enable/9_av_pause.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_pause_active {
+    background-image: url(../img/mdpi_active/9_av_pause.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+.icon_geof_play {
+    background-image: url(../img/mdpi/9_av_play.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_play_enable {
+    background-image: url(../img/mdpi_enable/9_av_play.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_play_active {
+    background-image: url(../img/mdpi_active/9_av_play.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+
+/* ------------------------------------ */
+/* ---   single state icons   --------- */
+/* ------------------------------------ */
+.icon_geof_ss_ugroup {
+    background-image: url(../img/symbol/Groups-64.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_ss_authcode {
+    background-image: url(../img/symbol/Certificate.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_rsakey {
+    background-image: url(../img/symbol/rsa_key.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_playvideo {
+    background-image: url(../img/symbol/play.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.icon_geof_pausevideo {
+    background-image: url(../img/symbol/pause.png) !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* ------------------------------------ */
+/* ---   One Offs   ------------------- */
+/* ------------------------------------ */
+/* ------------------------------------ */
+/*.icon_geof_selector_active {*/
+    /*background-image: url(../img/mdpi/select_corner.png) !important;*/
+    /*width: 32px !important;*/
+    /*height: 32px !important;*/
+/*}*/
+
+/*.icon_geof_selector_active {*/
+    /*background-image: url(../img/mdpi_active/selected.png) !important;*/
+    /*width: 32px !important;*/
+    /*height: 32px !important;*/
+/*}*/

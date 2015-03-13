@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dopple" basedir="."> 
+	
+	<path id="svnant.class.path">
+  		<pathelement location="/home/jeff/dev/svnant131/lib/svnant.jar" />
+  		<pathelement location="/home/jeff/dev/svnant131/lib/svnClientAdapter.jar" />
+  		<pathelement location="/home/jeff/dev/svnant131/lib/svnjavahl.jar" />
+  		<pathelement location="/home/jeff/dev/svnant131/lib/svnkit.jar" />
+ 	</path>
+	
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.class.path" /> 
+
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="user" value="${arg0}"/>
+	<property name="pwd" value="${arg1}"/>
+
+	<svnSetting svnkit="false" javahl="false" id="svn.settings" username="${user}" password="${pwd}" />
+
+	<property name="svn_google" value="http://geofixated.googlecode.com/svn/trunk"/>
+	<property name="svn_host" value="http://pi/svn/geof/geofixated"/>
+
+	<property name="svn_core_svr" value="${svn_host}/core_svr"/>
+	<property name="svn_core_web" value="${svn_host}/core_web"/>
+
+	<property name="svn_dpl_svr" value="${svn_host}/dopple/svr"/>
+	<property name="svn_dpl_web" value="${svn_host}/dopple/web"/>
+	<property name="svn_dpl_db" value="${svn_host}/dopple/install/scripts/database"/>
+	<property name="svn_admin" value="${svn_google}/geof_admin"/>
+
+	<property name="svn_sql" value="${svn_host}/dopple/install/scripts/database"/>
+    
+	<property name="build.dir" value="./build"/>
+	<property name="tomcat.dir" value="."/>
+	<property name="install.dest" value="."/> 
+		
+	<property name="svr.dir" value="${build.dir}/svr"/>
+	<property name="svr.src" value="${svr.dir}/src"/>
+	<property name="svr.lib" value="${svr.dir}/lib"/>
+	
+	<property name="core.dir" value="${build.dir}/core"/>
+	<property name="core.src" value="${core.dir}/src"/>
+	<property name="core.lib" value="${core.dir}/lib"/>
+	
+	<property name="dpl.dir" value="${tomcat.dir}/dpl"/>
+	<property name="conf.dir" value="${build.dir}/conf"/>
+	<property name="prod.dir" value="${build.dir}/prod"/>
+	<property name="webinf.dir" value="${dpl.dir}/WEB-INF"/>
+
+	<property name="admin.dir" value="${build.dir}/admin"/>
+	<property name="admin.src" value="${admin.dir}/src"/>
+
+	<property name="jar.dir" value="${build.dir}/classes"/>
+	<property name="admin.jar.dir" value="${admin.src}/classes"/>		
+
+	<property name="dpl.install" value="${build.dir}/dpl_ws_install.tar.gz"/>
+	<property name="zip.dpl.web" value="${build.dir}/dpl_web.tar.gz"/>
+			
+	<property name="jar.file" value="dopple.jar"/>
+	<property name="web.dir" value="webapp"/>
+	<property name="admin.jar" value="geof_admin.jar"/>
+
+	<path id="classpath">
+        <fileset dir="${svr.lib}" includes="**/*.jar"/>
+        <fileset dir="${core.lib}" includes="**/*.jar"/>
+    </path>
+    
+	<target name="clean_dpl_jar">
+        <delete dir="${build.dir}" />
+    </target>
+
+	<target name="clean_dpl_web">
+        <delete dir="${dpl.dir}" />
+    </target>
+
+	<target name="export_dpl_svr" depends="clean_dpl_jar">
+		<svn refid="svn.settings" >
+   			<export srcUrl="${svn_dpl_svr}/src" destPath="${svr.src}"/>
+   			<export srcUrl="${svn_dpl_svr}/lib" destPath="${svr.lib}"/>
+   			<export srcUrl="${svn_core_svr}/src" destPath="${core.src}"/>
+ 			<export srcUrl="${svn_core_svr}/lib" destPath="${core.lib}"/>
+   			<export srcUrl="${svn_admin}/src" destPath="${admin.src}"/>
+ 		</svn>
+	    <exec executable="svnversion" outputproperty="svnversion"/>
+	    <replaceregexp file="${core.src}/org/geof/request/VersionRequest.java"
+               match="svn_version"
+               replace="${svnversion}"
+               byline="true"
+		/>
+ 	</target>
+ 	
+	<target name="compile_dpl" depends="export_dpl_svr">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${jar.dir}" />
+        <mkdir dir="${admin.jar.dir}" />
+        <javac srcdir="${svr.src}:${core.src}" destdir="${jar.dir}" classpathref="classpath" includeantruntime="false" />
+        <javac srcdir="${admin.src}:${core.src}" destdir="${admin.jar.dir}" classpathref="classpath" includeantruntime="false"/>
+	</target>
+	
+	<target name="compile_admin" depends="export_dpl_svr">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${jar.dir}" />
+        <mkdir dir="${admin.jar.dir}" />
+        <javac srcdir="${admin.src}:${core.src}" destdir="${admin.jar.dir}" classpathref="classpath" includeantruntime="false"/>
+	</target>
+
+    <target name="jar_dpl" depends="compile_dpl">
+        <jar destfile="${build.dir}/${jar.file}" basedir="${jar.dir}"></jar>
+        <jar destfile="${build.dir}/${admin.jar}" basedir="${admin.jar.dir}"></jar>
+    </target>
+	
+    <target name="dpl_web" depends="clean_dpl_web,compile_dpl">
+		<svn refid="svn.settings" >
+   			<export srcUrl="${svn_dpl_web}" destPath="${dpl.dir}/."/>
+ 			<export srcUrl="${svn_core_web}" destPath="${dpl.dir}/core"/>
+ 		</svn>
+		<copy todir="${webinf.dir}/lib">
+			<fileset dir="${core.lib}"/>
+			<fileset dir="${svr.lib}"/>
+		</copy>
+		<svn refid="svn.settings" >
+   			<export srcUrl="${svn_admin}/scripts/geof_admin.sh" destPath="${webinf.dir}/lib"/>
+ 		</svn>
+		<delete file="${webinf.dir}/lib/servlet-api.jar" />
+        <jar destfile="${webinf.dir}/lib/${jar.file}" basedir="${jar.dir}"></jar>
+        <jar destfile="${webinf.dir}/lib/${admin.jar}" basedir="${admin.jar.dir}"></jar>
+    </target>
+	
+    <target name="zip_dpl_web" depends="clean_dpl_web">
+		<svn refid="svn.settings" >
+   			<export srcUrl="${svn_dpl_web}" destPath="${dpl.dir}/."/>
+ 			<export srcUrl="${svn_core_web}" destPath="${dpl.dir}/core"/>
+ 		</svn>
+		<tar destfile="${zip.web}" basedir="${geof.dir}" compression="gzip"/>
+<!--  Don't need this yet since the laptop will be destination - Use copy instead
+   		<scp file="${zip.web}" todir="${user}@dev205:/home/${user}/." password="${pwd}" trust="true"/>
+-->
+    </target>
+
+	<target name="tar_dpl_web" depends="dpl_web" >
+   		<tar destfile="${dpl.install}" basedir="${dpl.dir}" compression="gzip"/>
+ 	</target>
+
+	<target name="update_install_dpl" depends="tar_dpl_web" >
+		<copy file="${dpl.install}" tofile="/home/jeff/dev/geof/websites/geofixated/dpl/install/dopple_ws_install.tar.gz"/>
+ 	</target>
+
+	<target name="upload_install_dpl" depends="update_install_dpl" >
+		<scp file="${dpl.install}" todir="${user}@pi:/var/www/dpl/install/." password="${pwd}" trust="true"/>
+ 	</target>
+
+	<target name="upload_install_files" >
+		<!--
+		<scp file="${dpl.install}" todir="${user}@pi:/var/www/dpl/install/." password="${pwd}" trust="true"/>
+		-->
+		<svn refid="svn.settings" >
+   			<export srcUrl="${svn_dpl_db}" destPath="${dpl.dir}/db"/>
+ 		</svn>
+		<!--
+		<scp file="${dpl.install}" todir="${user}@pi:/var/www/dpl/install/." password="${pwd}" trust="true">
+			<fileset dir="src_dir"/>
+		</scp>
+		-->
+ 	</target>
+
+</project>
+

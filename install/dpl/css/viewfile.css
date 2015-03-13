@@ -1,0 +1,449 @@
+div.fileUploadDlg {
+    display: inline-block;
+    vertical-align: top;
+    width: 320px;
+    height: 640px;
+    margin-left: 8px;
+}
+
+div.fileItems {
+    overflow-y: scroll;
+    height: 602px;
+    border: 1px solid #696969;
+}
+.fileItemsOL {
+    height: 100%;
+}
+
+div.viewImage {
+     display: inline-block;
+     vertical-align: top;
+     width:413px;
+     height: 640px;
+     margin-left:10px;
+ }
+
+
+#olFileuploadList .ui-selecting { background: rgb(227, 227, 227); }
+/* #olFileuploadList .ui-selected { color: #008000; } */
+/*#olFileuploadList .ui-selected { background: rgb(236, 236, 247); color: black; }*/
+#olFileuploadList { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+#olFileuploadList li { margin: 2px; padding: 0.2em; font-size: .9em; height: 36px; cursor: pointer; }
+
+#olPendinguploadList .ui-selecting { background: #FECA40; }
+#olPendinguploadList .ui-selected { background: #F39814; color: white; }
+#olPendinguploadList { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+#olPendinguploadList li { margin: 3px; padding: 0.4em; font-size: .9em; height: 46px; cursor: pointer; }
+
+label.gpsRight {
+    float:right;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-size: 0.9em !important;
+    height:100%;
+}
+
+label.no_gps {
+    color: #B6B9BA !important;
+}
+label.has_gps {
+    color: #2B9E02 !important;
+}
+
+div.inlineBlock {
+    display: inline-block;
+}
+div.viewImage {
+    display: inline-block;
+    vertical-align: top;
+    width:413px;
+    height: 640px;
+    margin-left:10px;
+}
+
+div.viewImageData {
+    vertical-align: top;
+    margin-top: 2px;
+    /*height:310px;*/
+    width:406px;
+    margin:0px 2px 2px 2px;
+}
+
+label.viewImage {
+    width: 60px;
+    margin:8px;
+}
+
+div.previewSection {
+    min-height:296px;
+    width:100%;
+}
+
+div.imgPreview {
+    vertical-align: top;
+}
+
+div.imgPreviewAdjustTime {
+    vertical-align: top;
+    height:228px;
+    width:402px;
+    border: 1px solid #a6a6a6;
+    margin:8px 0px 0px 0px;
+    padding:0px;
+}
+
+.previewthumb {
+    max-width: 406px;
+    max-height: 228px;
+    border: 1px solid #000;
+    /*margin: 10px 5px 0 0;*/
+    margin:0px;
+    padding:0px;
+}
+
+label.fileupload {
+    color: #0e3a9e;
+    margin-right: 4px;
+}
+
+div.fileLiBlock {
+    float:left;
+    width:240px;
+}
+
+div.filePbar {
+    height:12px;
+    width:85%;
+    margin:4px 0px 2px 2px;
+    background: White !important;
+    border: 1px solid #c0c0cb;
+}
+
+div.keywordIconBar {
+    height:34px;
+}
+
+label.editKeyword {
+    width: 60px;
+}
+
+div.defaultSectionNoMargin {
+    border: 1px solid #46b400;
+    padding:4px;
+}
+
+div.selectProject {
+    height:38px;
+}
+
+select.projects {
+    width:300px;
+    background-color:white;
+}
+
+label.editDefault {
+    float:left;
+    width: 100px;
+    padding-top:4px;
+}
+
+label.editDefault2 {
+    float:left;
+    padding-top:4px;
+}
+
+label.inIconBarLeft {
+    float:left;
+    margin-top:6px;
+    margin-left:8px;
+}
+
+label.inIconBarRight {
+    float:right;
+    margin-top:4px;
+    margin-left:8px;
+}
+
+div.searchResults {
+    /*width:98%;*/
+}
+
+div.thmbnllayout {
+    display: inline-block;
+    vertical-align: top;
+    width:636px;
+    height:640px;
+    margin-left: 8px;
+}
+
+div.thmbnlWrapper{
+    display: block;
+    height:580px;
+    width:90%;
+}
+
+div.thmbnlGrid {
+    float:left;
+    clear:both;
+    overflow: hidden;
+    height: 580px;
+    width: 100%;
+    border: 1px solid #248887;
+}
+
+div.sliderBar {
+    display:inline-block;
+    margin-top:0px;
+    margin-bottom:0px;
+    width:40px;
+    height:540px;
+}
+
+input.thmbnlCB {
+    position:absolute;
+    top:3px;
+    left:3px;
+}
+
+table.thmbnlWrapper{
+    height:580px;
+    width:634px;
+}
+
+tr.thumbnlGrid {
+    width:98%;
+}
+td.thmbnlGrid {
+    overflow: hidden;
+    height: 100%;
+    border: 1px solid #248887;
+    vertical-align:top;
+}
+
+td.sliderBar {
+    margin-top:0px;
+    margin-bottom:0px;
+    width:40px;
+    height:100%;
+}
+
+div.thmbnlSlider{
+    margin-top:4px;
+    margin-bottom:0px;
+    margin-left:9px;
+    height:90%;
+    cursor: pointer;
+}
+
+span.arrowup {
+    margin-top:-4px !important;
+    cursor: pointer;
+}
+
+span.arrowdown {
+    margin-bottom:-4px !important;
+    cursor: pointer;
+}
+
+div.timeline{
+    margin-right:3px;
+    height:580px;
+    border:1px solid #aaa;
+}
+
+#ol_thmbnl .ui-selecting { background: #FECA40;}
+#ol_thmbnl .ui-selected { background: #ffffff;}
+#ol_thmbnl { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+
+li.photo_list {
+    position:relative;
+    float: left;
+    margin-bottom:16px;
+    padding: 1px !important;
+    width: 140px;
+    height: 100px;
+}
+
+li.photo_list img {
+    width: 140px;
+    height: 100px;
+    margin:0px !important;
+    padding:0px !important;
+}
+
+li.photo_list video {
+    width: 140px;
+    height: 100px;
+    margin:0px !important;
+    padding:0px !important;
+}
+
+li.photo_list div {
+    color:#666666;
+    text-align:center;
+    font-size: .6em;
+    font-family: verdana, arial, helvetica, sans-serif;
+}
+
+span.selector {
+    position:relative;
+    left: 110px;
+    top: -116px;
+}
+span.selectorHidden {
+    display: none;
+    position:relative;
+}
+
+div.fileDialog {
+    display: none;
+    overflow:hidden !important;
+}
+
+img.popup {
+    position:relative;
+}
+
+.imgHolder {
+    border: 1px solid #46b400;
+}
+
+.gmapHolder {
+    border: 1px solid #46b400;
+}
+
+div.thmbnlInfo {
+    display: inline-block;
+    width:360px;
+    height:602px;
+}
+
+img.rotate0 {
+    transform: rotate(0deg);
+    /*Firefox*/
+    -moz-transform: rotate(0deg);
+    /*Microsoft Internet Explorer*/
+    -ms-transform: rotate(0deg);
+    /*Chrome, Safari*/
+    -webkit-transform: rotate(0deg);
+    /*Opera*/
+    -o-transform: rotate(0deg);
+}
+
+/*rotate 90 degrees*/
+img.rotate90 {
+    /*General*/
+    transform: rotate(90deg);
+    /*Firefox*/
+    -moz-transform: rotate(90deg);
+    /*Microsoft Internet Explorer*/
+    -ms-transform: rotate(90deg);
+    /*Chrome, Safari*/
+    -webkit-transform: rotate(90deg);
+    /*Opera*/
+    -o-transform: rotate(90deg);
+}
+
+/*rotate 180 degrees*/
+img.rotate180 {
+    /*General*/
+    transform: rotate(180deg);
+    /*Firefox*/
+    -moz-transform: rotate(180deg);
+    /*Microsoft Internet Explorer*/
+    -ms-transform: rotate(180deg);
+    /*Chrome, Safari*/
+    -webkit-transform: rotate(180deg);
+    /*Opera*/
+    -o-transform: rotate(180deg);
+}
+
+/*rotate 270 degrees*/
+img.rotate270 {
+    /*General*/
+    transform: rotate(270deg);
+    /*Firefox*/
+    -moz-transform: rotate(270deg);
+    /*Microsoft Internet Explorer*/
+    -ms-transform: rotate(270deg);
+    /*Chrome, Safari*/
+    -webkit-transform: rotate(270deg);
+    /*Opera*/
+    -o-transform: rotate(270deg);
+}
+
+#gmapDialog .ui-dialog-titlebar {
+    background-color: red;
+}
+
+div.uploadProjects {
+    min-height:82px;
+    width:100%;
+    margin: 4px;
+    padding:0px;
+}
+
+div.uploadNewProject {
+    min-height:36px;
+    width:100%;
+    margin: 4px;
+    padding:0px;
+}
+
+.trackDialog {
+    margin:0px !important;
+    padding: .3em .85em !important;
+}
+
+.trackProfile {
+    height:120px;
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.canvasTrackProfile {
+    height:100px;
+    width:99%;
+    margin:2px;
+    padding:2px;
+    border: 1px solid #696969;
+}
+.sliderTrackProfile {
+    height:14px;
+    width:100%;
+    margin:8px 0px 0px 0px;
+    padding:0px;
+}
+.sliderTrackProfile2 {
+    height:14px;
+    width:100%;
+    margin:2px 0px 0px 0px;
+    padding:0px;
+}
+
+.tvMapHolder {
+    height:440px;
+    width:100%;
+    margin:36px 0px 0px 0px !important;
+    padding:0px;
+}
+
+.tvListHolder {
+    height:440px;
+    width:100%;
+    margin:36px 0px 0px 0px !important;
+    padding:0px;
+    display:none;
+}
+
+table.tvTrackData {
+    width:100%;
+    height:100%;
+    border: 1px solid #aaa;
+}
+
+.profileSection {
+    height:440;
+}

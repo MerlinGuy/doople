@@ -1,0 +1,10 @@
+logpath=logs/dopple.log
+loglevel=VERBOSE
+connstr=jdbc:postgresql://localhost/dopple
+uid=dpladmin
+pwd=dpl1408
+securityoff=false
+debug_permission=false
+do_not_audit=notification.read
+libvirt_conn=qemu://system
+mac_base=52:54:00

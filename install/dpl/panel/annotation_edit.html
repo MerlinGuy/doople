@@ -1,0 +1,34 @@
+<div id="editAnnotation" title="Edit Annotation" class="hidden font12">
+    <div class="dialogHeader">
+        <span class="ui-icon icon_geof_save geof_enabled iconRight" id="edit_anno_save" title="Save Annotation"></span>
+        <label class="annotation">Title</label><input type="text" id="anno_title" class="w240">
+        <!--<label id="anno_id" class="annotation"></label>-->
+    </div>
+    <label class="annotation">Description</label><br>
+    <textarea maxlength="512" id="anno_description" class="annotation"></textarea><br>
+    <div id="videoAnnotationSection" class="hidden">
+        <div class="h36">
+            <label class="annotation floatLeft" >Time offsets<input type="text" id="anno_timepudate" class="w50" ></label>
+            <span class="ui-icon icon_geof_playvideo iconLeft" id="videoplay" title="Start Video"></span>
+        </div>
+
+        <div id="sliderVideoAnnotation" class="slider_annotation"></div>
+        <label class="annotation mt4">Start offset</label><input type="text" id="anno_startoffset" class="w50" >
+        <label class="annotation mt4">End offset</label><input type="text" id="anno_endoffset" class="w50" ><br>
+    </div>
+
+    <hr>
+    <label class="annotation bold">Notify Users</label>
+    <label class="annotation ml20">Status</label>
+    <select size="1" class="font12" id="anno_notification_level" >
+        <option value="0" selected>Normal</option>
+        <option value="1">Important</option>
+        <option value="2">Urgent</option>
+        <option value="3">Emergency</option>
+    </select><br>
+    <div class="annotationUsr mt4b4">
+        <ol id="annotationUsrs" class="OlStdSelect2"></ol>
+    </div>
+    <label class="annotation" >Message</label><br>
+    <textarea maxlength="512" id="anno_notification_message" class="annotation"></textarea>
+</div>

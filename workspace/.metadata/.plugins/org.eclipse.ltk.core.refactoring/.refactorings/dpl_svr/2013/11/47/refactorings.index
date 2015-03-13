@@ -1,0 +1,19 @@
+1384787975486	Delete element
+1384788074628	Delete elements
+1384788270254	Rename resource 'create_dopple_tables.sql'
+1384797880341	Rename type 'BuildRequest'
+1384872165597	Rename method 'get_domain_state'
+1384872195082	Rename method 'get_domain'
+1384872206568	Rename method 'get_image_info'
+1384872222599	Rename method 'write_new_xml'
+1384872370812	Rename method 'getState'
+1384872391994	Rename method 'get'
+1384872405991	Rename method 'getImageInfo'
+1384872519465	Rename method 'list_domains'
+1384872566541	Rename method 'getDomainName'
+1384872936308	Rename type 'VmManager'
+1384873052571	Rename type 'VmRequest'
+1384883002279	Delete element
+1384883033789	Delete elements
+1384977045083	Delete element
+1384977050318	Delete element

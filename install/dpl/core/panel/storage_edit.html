@@ -1,0 +1,46 @@
+<div id="editStorage" title="Edit File Storage Locations " class="font12">
+    <div class="dialogHeader">
+        <span class="ui-icon icon_geof_save_enable geof_enabled iconRight" id="edit_strg_save" title="Save User Changes"></span>
+        <label class="stdlabel" >ID: <label id="strg_id" /> </label>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Name:</label>
+        <input type="text" id="strg_name" size="44"/>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">System Dir:</label>
+        <input type="text" id="strg_systemdir" size="44"/>
+        <span class="ui-icon icon_geof_download_enable iconInline" id="validateSystemDir" title="Validate System Dir"></span>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Active:</label>
+        <select id="strg_active" size="1">
+            <option value="false">Inactive</option>
+            <option value="true">Active</option>
+        </select>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Quota:</label><input type="text" id="strg_quota" size="18" class="textright" >
+        <label class="stdlabel">meg</label>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Used Space:</label>
+        <label id="strg_usedspace" class="readOnly"></label>
+        <label class="stdlabel">meg</label>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">File Count:</label>
+        <label id="strg_filecount" class="readOnly"></label>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Can Stream:</label>
+        <select id="strg_canstream" size="1">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+    <div class="editLine">
+        <label class="stdlabel">Description:</label><br>
+        <textarea id="strg_description" rows="6" cols="50"></textarea>
+    </div>
+</div>

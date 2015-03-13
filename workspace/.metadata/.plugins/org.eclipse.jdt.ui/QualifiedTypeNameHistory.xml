@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="org.geof.db.EntityMap"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="org.geof.db.DBInteract"/>
+<fullyQualifiedTypeName name="org.geof.db.EntityMapMgr"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParameterList"/>
+<fullyQualifiedTypeName name="org.postgresql.core.ParameterList"/>
+<fullyQualifiedTypeName name="org.geof.prop.GlobalProp"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="org.geof.util.FileUtil"/>
+<fullyQualifiedTypeName name="org.geof.dpl.mgr.DomainMgr"/>
+</qualifiedTypeNameHistroy>

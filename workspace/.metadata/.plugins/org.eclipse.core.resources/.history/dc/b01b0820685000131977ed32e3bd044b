@@ -1,0 +1,17 @@
+\connect dopple;
+
+--DROP TABLE vm;
+
+-- Table holds Virtual Machine info
+CREATE TABLE vm
+(
+  id serial NOT NULL,
+  name character varying(255) NOT NULL,
+  storageloc_id integer NOT NULL,
+  notes character varying(4000),
+  statusid smallint,
+  CONSTRAINT vm_pkey PRIMARY KEY (id),
+  CONSTRAINT vm_unq_name UNIQUE (name)
+)
+WITH (OIDS=FALSE);
+ALTER TABLE usr OWNER TO dpladmin;

@@ -1,0 +1,43 @@
+<div id="editUsr" title="Edit Profile" class="hidden font12">
+    <div id="profile_tabs">
+        <h3>Details</h3>
+        <div class="profileSection">
+            <div class="dialogHeader">
+                <label class="stdlabel floatleft">Login:</label><input type="text" id="profile_loginname" size="18" >
+                <input type="hidden" id="profile_id" size="10" >
+                <span class="ui-icon icon_geof_save_enable geof_enabled iconRight2R" id="btnProfileSave" title="Save Profile Changes"></span>
+            </div>
+            <label class="stdlabel">First Name:</label><input type="text" id="profile_firstname" size="24" ><br>
+            <label class="stdlabel">Last Name:</label><input type="text" id="profile_lastname" size="24" ><br>
+            <label class="stdlabel">Initials:</label><input type="text" id="profile_initials" size="4" ><br>
+            <label class="stdlabel">Email:</label><input type="text" id="profile_email" size="40" ><br>
+            <label>Notes:</label><br>
+            <textarea maxlength="512" id="profile_notes" cols="50" rows="4"></textarea><br>
+            <label class="stdlabel">Attempts:</label><input type="text" id="profile_attempts" size="4"><br>
+            <label class="stdlabel">Last Attempt:</label>
+            <input type="text" id="profile_lastattempt" size="40" value="" readonly>
+        </div>
+        <h3>Security</h3>
+        <div id="ptabs_security">
+            <span class="ui-icon icon_geof_save_enable iconRight2R" id="edit_profile_updatepwd" title="Update Profile Password"></span>
+            <label class="profile_label">Change Password</label><br>
+            <label class="stdlabel w100 floatLeft">Password:</label><input type="password" id="profile_password" size="18"><br>
+            <label class="stdlabel w100 floatLeft">Confirm:</label><input type="password" id="profile_password2" size="18" >
+            <HR>
+            <span class="ui-icon icon_geof_discard_enable iconRight2R" id="btnDeleteRSA" title="Delete RSA Key"></span>
+            <span class="ui-icon icon_geof_download_enable iconRight2R" id="btnRequestRSA" title="Download New RSA Key"></span>
+            <span class="ui-icon icon_geof_refresh_enable iconRight2R" id="btnRefreshRSA" title="Refreah Local RSA Key"></span>
+            <label class="profile_label">RSA Key</label> <label class="stdlabel" id="rsa_id"></label><br>
+            <label class="stdlabel">Modulus:</label><input type="text" id="rsa_modulus" size="24" ><br>
+            <label class="stdlabel">Exponent:</label><input type="text" id="rsa_exponent" size="24" >
+            <HR>
+            <span class="ui-icon icon_geof_save iconRight2R" id="btnImportRsa" title="Import New RSA Key"></span>
+            <span class="ui-icon icon_geof_notify_enable iconRight2R" id="btnEmailRSA" title="Request Emailed RSA Key"></span>
+            <label class="profile_label">Paste RSA Key</label><br>
+            <label class="stdlabel">Automatic RSA Renewal</label>
+            <input type="checkbox" id="auto_rsa_renewal"/> <br>
+
+            <textarea rows="6" cols="60" id="import_rsa_key"></textarea>
+        </div>
+    </div>
+</div>

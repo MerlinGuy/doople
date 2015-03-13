@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+firstStartup=false
+org.eclipse.team.svn.ui.panel.callback.PromptCredentialsPanel.height=248
+org.eclipse.team.svn.ui.panel.callback.PromptCredentialsPanel.width=470
+org.eclipse.team.svn.ui.panel.local.CommitPanel.height=406
+org.eclipse.team.svn.ui.panel.local.CommitPanel.width=600
+org.eclipse.team.svn.ui.panel.reporting.ErrorCancelPanel.height=121
+org.eclipse.team.svn.ui.panel.reporting.ErrorCancelPanel.width=640

@@ -1,0 +1,24 @@
+<div id="editRole" title="Edit Roles" class="editRole" >
+    <div class="dialogHeader">
+        <span class="ui-icon icon_geof_save_enable geof_enabled iconRight" id="edit_role_save" title="Save Changes"></span>
+        <label class="editRole" >ID: <label class="RoleId" id="role_id" /> </label>
+        <br>
+    </div>
+    <label class="editRole">Name:</label>
+    <input type="text" id="role_name" size="40" ><br>
+
+    <label class="editRole">Target:</label>
+    <select id="role_target" size="1">
+        <option value="2" selected="true">General</option>
+        <option value="0">All</option>
+        <option value="1">System</option>
+    </select><br>
+
+    <label class="editRole">Visible:</label>
+    <input type="radio" name="role_visible" value="true" checked="checked"> True
+    <input type="radio" name="role_visible" value="false"> False<br>
+
+    <br>
+    <label>Description:</label><br>
+    <textarea maxlength="512" id="role_description" cols="50" rows="8"></textarea>
+</div>

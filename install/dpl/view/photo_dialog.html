@@ -1,0 +1,34 @@
+<div id="photoDialog" class="fileDialog">
+    <div class="floatLeft">
+        <div class="buttonBar" id="photoviewerBar">
+            <span class="iconLeft">
+                <label for="iv_photosize">Size</label>
+                <select id="iv_photosize">
+                    <option value='1'>Small</option>
+                    <option value='2'>Medium</option>
+                    <option value='3'>Large</option>
+                    <option value='0'>Full Size</option>
+                </select>
+            </span>
+            <span class="ui-icon icon_geof_tag_enable iconRight" id="btnToggleAnnotation" title="Display Annotations"></span>
+            <span class="ui-icon icon_geof_rotateRight_enable iconRight" data-rotate="1" id="btnPhotoRotateRight" title="Rotate Right"></span>
+            <span class="ui-icon icon_geof_rotateLeft_enable iconRight" data-rotate="-1" id="btnPhotoRotateLeft" title="Rotate Left"></span>
+        </div>
+        <div id="imgHolder" class="imgHolder">
+            <img id="photoDialogImg" class="popup rotate0" src=""/>
+        </div>
+    </div>
+    <div class="annotationBorder" id="annotationDiv">
+        <div class="buttonBar">
+            <span class="ui-icon icon_geof_new_enable iconLeft ml14" id="btnNewAnnotation"  title="Add new Annotation"></span>
+            <span class="ui-icon icon_geof_edit iconLeft" id="btnEditAnnotation"  title="Edit Annotation"></span>
+            <span class="ui-icon icon_geof_discard iconLeft" id="btnDiscardAnnotation" title="Remove selected Annotation"></span>
+            <span class="ui-icon icon_geof_selectAll iconLeft" id="btnSelectAllAnnotation" title="Select all Annotation"></span>
+            <span class="ui-icon icon_geof_deselectAll iconLeft" id="btnDeselectAllAnnotation" title="Deselect all Annotation"></span>
+        </div>
+        <label class="sectionHeader">Annotations</label>
+        <div class="annotationItems" id="">
+            <ol id="olAnnotations" class="OlStdSelect2"></ol>
+        </div>
+    </div>
+</div>

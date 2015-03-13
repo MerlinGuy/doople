@@ -1,0 +1,589 @@
+package org.geof.dpl.request;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.geof.db.EntityMapMgr;
+import org.geof.dpl.DomainData;
+import org.geof.dpl.GeofInstaller;
+import org.geof.dpl.ImageEditor;
+import org.geof.dpl.ImageFile;
+import org.geof.dpl.NewDomain;
+import org.geof.dpl.ReturnObj;
+import org.geof.dpl.mgr.DomainMgr;
+import org.geof.log.Logger;
+import org.geof.prop.GlobalProp;
+import org.geof.request.DBRequest;
+import org.geof.util.FileUtil;
+import org.geof.util.JsonUtil;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.libvirt.Domain;
+
+public class DomainRequest extends DBRequest {
+
+	public final static int RUNNING = 1;
+	public final static int OFFLINE = 5;
+	
+	public final static int FROM = 0;
+	public final static int TO = 1;
+	
+	public final static String STATUSID = "statusid";
+
+	
+	@Override
+	public boolean process() {
+		if (_actionKey.equalsIgnoreCase(READ)) {
+			return read();
+		} else if (_actionKey.equalsIgnoreCase(UPDATE)) {
+			return update();
+		} else if (_actionKey.equalsIgnoreCase(CREATE)) {
+			return create();
+		} else if (_actionKey.equalsIgnoreCase(DELETE)) {
+			return delete();
+		} else {
+			return super.process();
+		}
+	}
+
+	@Override
+	/**
+	 * 
+	 */
+	public boolean create() {
+
+		GeofInstaller giHostImg = null;
+		GeofInstaller giGuest = null;
+
+		try {
+			DomainMgr dm = new DomainMgr(_data.optString("qemu_svr", null));
+			if (dm.hasError()) {
+				return false;
+			}			
+
+			String user = _data.optString("user", null);
+			String pwd = _data.optString("pwd", null);
+			if (user == null) {
+				return setError("Missing user parameter");
+			}
+			if (pwd == null) {
+				return setError("Missing pwd parameter");
+			}
+
+			long buildid = _data.optLong("buildid", -1);
+			if (buildid == 1) {
+				return setError("No build id found ");
+			}
+
+			JSONObject bpdata = JsonUtil.getDataWhere("id", buildid);
+			JSONArray buildplans = BuildplanRequest.getBuildPlan(_dbi, bpdata);
+			if (buildplans == null || buildplans.length() != 1) {
+				return setError("Invalid build id");
+			}
+			JSONObject bldplan = buildplans.getJSONObject(0);
+
+			GlobalProp gprop = GlobalProp.instance();
+
+			JSONObject domaindata = JsonUtil.getDataWhere("id",
+					bldplan.opt("domainid"));
+			JSONArray domainRows = _dbi.readAsJson(
+					EntityMapMgr.getEMap("domain"), domaindata);
+			if (domainRows == null || domainRows.length() != 1) {
+				return setError("Invalid source domain id");
+			}
+			JSONObject domain = domainRows.getJSONObject(0);
+
+			boolean start = _data.optBoolean("start", false);
+
+			boolean connect = _data.optBoolean("connect", false);
+			boolean shutdown = _data.optBoolean("shut", false);
+
+			String workdir = gprop.get("workingdir", "./");
+
+			JSONObject macdata = JsonUtil.getDataWhere("domain_id", -1);
+			JSONArray mac_addrs = MacipRequest.getMacIps(_dbi, macdata);
+
+			boolean restart = false;
+
+			String ipaddress = _data.optString("ip", null);
+			String mac_address = null;
+			JSONObject mac;
+			for (int indx = 0; indx < mac_addrs.length(); indx++) {
+				mac = mac_addrs.getJSONObject(indx);
+				if (mac.optString("ipaddress") == ipaddress) {
+					mac_address = mac.optString("macaddress");
+				}
+			}
+			if (mac_address == null) {
+				return setError("Mac address tail .get(" + ipaddress
+						+ ") not in range 200:209");
+			}
+
+			ReturnObj ro;
+			if (_data.optBoolean("-build", false)) {
+				String build_dir = gprop.get("build_dir", null);
+				String ant_build = gprop.get("ant_build", null);
+				if (build_dir != null) {
+					String ant_cmd = gprop.get("ant_cmd", "svr_create_tar");
+					String local_dir = gprop.get("local_dir", "");
+					String cmd = " ant -buildfile " + ant_build + " -Darg0="
+							+ build_dir + " -Darg1=" + user + " -Darg2=" + pwd
+							+ " -Darg3=" + local_dir + " " + ant_cmd;
+
+					Logger.debug(cmd);
+					ro = exec(cmd);
+					if (ro.exit_code != 0) {
+						return setError("Error- Ant build failed " + ro.error);
+					}
+				} else {
+					return setError("build_dir"
+							+ " is missing from dopple.cfg file");
+				}
+			}
+
+			// TODO: change this to something like software install file
+			String install_file = _data.optString("install_file", null);
+			if (install_file != null) {
+				install_file = workdir + install_file;
+				if (!(new File(install_file)).exists()) {
+					return setError("Missing install file - " + install_file);
+				}
+
+				start = true;
+				connect = true;
+
+			} else if (connect) {
+				start = true;
+			}
+
+			// Connect to the Host server
+			Logger.debug("Connecting to virsh server");
+
+			// Get the 'from' domain information (image files, xml, etc)
+			String from_domain = _data.optString("from", null);
+			// TODO: write return object for calls like this
+			DomainData dData = dm.getDomainInfo(from_domain);
+			if (dData.error != null) {
+				return setError(dData.error);
+			}
+
+			// Shutdown the donor domain if necessary
+			if (dm.getDomainState(from_domain) == RUNNING) {
+				Logger.debug("Shutting down source domain - " + from_domain);
+				if (shutdown) {
+					restart = dm.shutdown(from_domain);
+					if (!restart) {
+						Logger.debug("Error: could ! shutdown source domain -"
+								+ from_domain);
+					}
+				} else {
+					return setError("Error: source domain == active - "
+							+ from_domain);
+				}
+			}
+
+			boolean rtn = false;
+			if (dm.isRemoteSvr()) {
+				Logger.debug("Attempting to connect to remote host");
+				int max_retries = 12;
+				giHostImg = new GeofInstaller(dm.getRemoveSvr(), user, pwd, max_retries);
+				if (!giHostImg.connect().success) {
+					return setError("Connection to remote host timed out");
+				}
+				Logger.debug("... connected to remote host");
+			}
+
+			// String host_image_dir = dpl_cfg.optString("host_image_dir","");
+			String new_domain = _data.optString("name");
+
+			Domain domExisting = dm.getDomain(new_domain);
+			if (domExisting != null) {
+				Logger.debug("New domain exists on host: " + new_domain);
+				if (_data.optBoolean("-remove", false)) {
+					Logger.debug("Removing existing domain");
+					DomainData eData = dm.getDomainInfo(new_domain);
+					if (! delete(new_domain, dm, user, pwd,
+							eData.getDomainDirectory())) {
+						Logger.debug("Error. Failed to remove existing new domain - "
+								+ new_domain);
+					}
+					Logger.debug("... domain removed");
+				} else {
+					return setError("Error. Domain: .get(" + new_domain
+							+ ") already exists");
+				}
+			}
+
+			String work_dir = gprop.get("work_dir", "/tmp");
+			List<String> local_images = JsonUtil.toList(_data
+					.optJSONArray("-local_images"));
+
+			NewDomain nDomain = new NewDomain(new_domain,
+					domain.optString("xmlpath"), work_dir);
+
+			if (!nDomain.setImages(dData, local_images)) {
+				return setError(nDomain.error);
+			}
+
+			String domainDir = nDomain.host_domain_dir;
+
+			Logger.debug("Creating image directory - " + domainDir);
+			String err = null;
+			if (giHostImg != null) {
+				giHostImg.create_directory(domainDir);
+			} else {
+				err = FileUtil.makeTargetDir(domainDir);
+			}
+
+			if (err != null) {
+				return setError(err);
+			}
+			Logger.debug("... image directory created.");
+
+			String new_xml = nDomain.getImageXml(dData.xml_str, mac_address);
+			if (new_xml == null) {
+				return setError(nDomain.error);
+			}
+
+			String new_xml_path = nDomain.xml_path;
+			Logger.debug("Creating image xml config file - " + new_xml_path);
+			rtn = false;
+
+			if (giHostImg != null) {
+				String tmp_path = work_dir + "/" + new_domain + ".xml";
+				rtn = dm.writeNewXml(tmp_path, new_xml);
+				rtn = giHostImg.scp_to(tmp_path, new_xml_path).success;
+			} else {
+				rtn = dm.writeNewXml(new_xml_path, new_xml);
+			}
+			if (!rtn) {
+				return setError("Unknown error while creating new domain xml file");
+			}
+
+			List<String> work_images = new ArrayList<String>();
+			for (ImageFile imgF : nDomain.imgFiles) {
+				Logger.debug("Copying image files - " + imgF.from_image);
+				if (giHostImg != null) {
+					if (nDomain.useLocalFiles) {
+						File fileFrom = new File(imgF.from_image);
+						File fileHost = new File(imgF.work_image);
+						FileUtils.copyFile(fileFrom, fileHost);
+					} else {
+						ro = giHostImg.scp_from(imgF.from_image,
+								imgF.work_image);
+					}
+					work_images.add(imgF.work_image);
+				} else {
+					File fileFrom = new File(imgF.from_image);
+					File fileHost = new File(imgF.host_image);
+					FileUtils.copyFile(fileFrom, fileHost);
+					work_images.add(imgF.host_image);
+				}
+			}
+
+			// Restart the shutdown source domain
+			if (restart) {
+				if (!dm.start(from_domain)) {
+					Logger.debug("Failed to restart from  domain - "
+							+ from_domain);
+				}
+			}
+
+			String ip = bldplan.optString("baseip", "192.168.1.") + ipaddress;
+			_data.put("-ip", ip);
+
+			JSONObject mod_cfg = new JSONObject("{'template_dir':'"
+					+ _data.optString("template_dir") + "'}");
+			mod_cfg.put("imgfiles", work_images);
+
+			Logger.debug("Modifying files in new image");
+			JSONObject chg_cfg = new JSONObject(bldplan.optString("imgcfg"));
+			JSONObject vargs = new JSONObject("{'domain_name':'"
+					+ _data.optString("domain_name") + "','ip':'" + ipaddress
+					+ "'}");
+			ImageEditor imgEditor = new ImageEditor();
+			HashMap<String, String> rtn_mod = imgEditor.modify(mod_cfg,
+					chg_cfg, vargs);
+
+			if (rtn_mod.containsKey("error")) {
+				return setError("GuestFileModifier.modify : "
+						+ rtn_mod.get("error"));
+			}
+			Logger.debug("... modifications complete on new image");
+
+			// The copied images files were editted locally so they need to be
+			// scp'd to the host image directory
+			if (giHostImg != null) {
+				Logger.debug("Copying new image to remotehost");
+				for (ImageFile imgF : nDomain.imgFiles) {
+					if (!giHostImg.scp_to(imgF.work_image, imgF.host_image).success) {
+						return setError("... failed to copy image "
+								+ imgF.work_image + " to " + imgF.host_image);
+					}
+				}
+			}
+
+			String cmd = "sudo chmod -R 777 " + nDomain.host_domain_dir;
+			if (giHostImg != null) {
+				ro = giHostImg.exec(cmd);
+			} else {
+				ro = exec(cmd);
+			}
+			if (giHostImg != null) {
+				giHostImg.disconnect();
+				giHostImg = null;
+				Logger.debug("Disconnecting from remote host: " + dm.getRemoveSvr());
+			}
+
+			if (ro.exit_code > 0) {
+				return setError("Error " + cmd + "  returned: " + ro.error);
+			}
+
+			Logger.debug("Defining new domain");
+			if (!dm.define(new_xml, new_domain)) {
+				Logger.debug("Error. Failed to define new domain - "
+						+ new_domain);
+			}
+
+			if (start) {
+				Logger.debug("Starting new domain");
+				if (!dm.start(new_domain)) {
+					return setError("Error. Failed to start new domain - "
+							+ new_domain);
+				}
+			}
+
+			if (connect) {
+				Logger.debug("Connecting to new domain - " + ip);
+				int max_retries = 20;
+				giGuest = new GeofInstaller(ip, user, pwd, max_retries);
+				if (!giGuest.connect().success) {
+					return setError("Error. Failed to connect to new domain - "
+							+ new_domain);
+				}
+				Logger.debug("... connected to new domain");
+			}
+
+			if (install_file != null) {
+				Logger.debug("Installing files on new domain");
+				JSONArray cleanup = new JSONArray();
+				if (!giGuest.run_install(install_file, cleanup).success) {
+					return setError("Error. Failed to complete software install on new domain");
+				}
+				Logger.debug("... files installed");
+			}
+
+			Logger.debug("--- domainRequest.create complete ---");
+			return true;
+		} catch (Exception e) {
+			return setError("--- domainRequest.create Failed ---"
+					+ e.getMessage());
+		} finally {
+			if (giHostImg != null) {
+				giHostImg.disconnect();
+			}
+			if (giGuest != null) {
+				giGuest.disconnect();
+			}
+
+		}
+	}
+
+	@Override
+	/**
+	 * 
+	 */
+	public boolean read() {
+		DomainMgr dm = null;
+		try {
+			dm = new DomainMgr(_data.optString("qemu_svr", null));
+			if (dm.hasError()) {
+				return setError("DomainRequest.read : Could not instanciate DomainMgr");
+			}
+			List<Domain> domains = new ArrayList<Domain>();
+			boolean rtn = false;
+			if (_where != null) {
+				if (_where.has(ID)) {
+					domains.add(dm.getDomainById( _where.optInt(ID) ));
+				} else if (_where.has(NAME)) {
+					domains.add(dm.getDomain( _where.optString(NAME) ));
+					
+				} else if (_where.has(STATUSID)) {
+					domains.addAll(dm.getDomainsByState( _where.optInt(STATUSID)) );
+				}
+			} else {
+				domains =  dm.getDomains(); 
+			}
+			return rtn;
+			
+		} catch (Exception e) {
+			return setError("DomainRequest.read: " + e.getMessage() );
+		}
+		finally {
+			if (dm != null) {
+				dm.dispose();
+			}
+
+		}
+	}
+	
+	
+	@Override	
+	/**
+	 * 
+	 */
+	public boolean delete() {
+		try {
+			String domain_name = _data.optString("domain_name", null);
+			String host_img_dir = _data.optString("host_img_dir", null);
+			String user = _data.optString("user", null);
+			String pwd = _data.optString("pwd", null);
+			
+			String qemu_svr = _data.optString("qemu_svr", null);
+			
+			DomainMgr dm = new DomainMgr(qemu_svr);
+			if (dm.hasError()) {
+				return false;
+			}			
+
+			if (dm.isRemoteSvr()) {
+				if (user == null) {
+					return setError("Missing -user parameter");
+				}
+				if (pwd == null) {
+					return setError("Missing -pwd parameter");
+				}
+			}
+			boolean rtn = delete ( domain_name, dm, user, pwd, host_img_dir);
+			dm.dispose();
+			return rtn;
+		} catch (Exception e) {
+			return setError("--- domainRequest.delete Failed ---"
+					+ e.getMessage());
+		}
+	}
+
+	/**
+	 * 
+	 * @param domain_name
+	 * @param host
+	 * @param user
+	 * @param pwd
+	 * @param host_img_dir
+	 * @return
+	 */
+	public boolean delete(String domain_name, DomainMgr dm, String user, String pwd, String host_img_dir) {
+		GeofInstaller giHost = null;
+		try {
+			if (dm.isRemoteSvr()) {
+				if (user == null) {
+					return setError("Missing -user parameter");
+				}
+				if (pwd == null) {
+					return setError("Missing -pwd parameter");
+				}
+			}
+
+			// Get the 'from' domain information (image files, xml, etc)
+			if (domain_name == null) {
+				return setError("Missing domain_name parameter");
+			}
+
+			// TODO: write return object for calls like this
+			Domain domain = dm.getDomain(domain_name);
+			DomainData dData = null;
+			String domaindir = null;
+
+			if (domain != null) {
+				// Shutdown the donor domain if necessary
+				if (dm.getDomainState(domain_name) == RUNNING) {
+					Logger.debug("Shutting down FROM domain - " + domain_name);
+					if (!dm.shutdown(domain_name)) {
+						Logger.debug("Error: could not shutdown target domain -"
+								+ domain_name);
+					}
+				}
+				dData = dm.getDomainInfo(domain_name);
+				domaindir = dData.getDomainDirectory();
+				if (!dm.undefine(domain_name)) {
+					return setError("Error - failed to remove domain - ["
+							+ domain_name + "]");
+				}
+			}
+
+			if (domaindir == null) {
+				if (host_img_dir == null) {
+					return setError("Could not find domain and -host_img_dir parameter is null");
+				}
+				domaindir = host_img_dir + domain_name + "/";
+			}
+
+			boolean rtn = false;
+			if (dm.isRemoteSvr()) {
+				String remote_svr = dm.getRemoveSvr();
+				giHost = new GeofInstaller(remote_svr, user, pwd, 12);
+
+				Logger.debug("Attempting to connect to domain host: " + remote_svr);
+				rtn = giHost.connect().success;
+				if (!rtn) {
+					return setError("... connection attempt timed out");
+				}
+				Logger.debug("... connected to " + remote_svr);
+				rtn = giHost.delete_directory(domaindir).success;
+
+			} else {
+				File dir = new File(domaindir);
+				if (dir.isDirectory()) {
+					Logger.debug("Removing existing directory - " + domaindir);
+					try {
+						FileUtils.deleteDirectory(dir);
+					} catch (IOException e) {
+						return setError("Error - failed to remove domain directory - "
+								+ domaindir + e.getMessage());
+					}
+					if (dir.exists()) {
+						return setError("Error - failed to remove domain directory - "
+								+ domaindir);
+					}
+				}
+				rtn = true;
+			}
+
+			Logger.debug("Domain - [" + domain_name + "] removed");
+			return true;
+		} catch (Exception e) {
+			return setError("--- Dopple Failed ---" + e.getMessage());
+		} finally {
+			if (dm != null) {
+				dm.dispose();
+			}
+			if (giHost != null) {
+				giHost.disconnect();
+			}
+		}
+
+	}
+
+	//TODO: Move this to ExecTool.java
+	/**
+	 * 
+	 * @param cmd
+	 * @return
+	 */
+	public ReturnObj exec(String cmd) {
+		try {
+			Process p = Runtime.getRuntime().exec(cmd);
+			int exit_code = p.waitFor();
+			String stdout = FileUtil.getStream(p.getInputStream());
+			String stderr = FileUtil.getStream(p.getErrorStream());
+			return new ReturnObj(exit_code == 0, stderr, stdout, exit_code);
+		} catch (Exception e) {
+			return ReturnObj.getError(e.getMessage());
+		}
+	}
+
+}

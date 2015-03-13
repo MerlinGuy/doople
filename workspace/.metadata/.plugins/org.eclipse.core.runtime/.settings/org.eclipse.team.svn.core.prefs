@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+externalMigrateFromAuthorizationDatabase/isMigrated=true
+migrateFromAuthorizationDatabase/isMigrated=true
+repositories/70b82e3d3e4d00131074cf65898db956=70b82e3d3e4d00131074cf65898db956;http\://pi/svn/geof/geofixated/core_svr;http\://pi/svn/geof/geofixated/core_svr;branches;tags;trunk;true;65f30a7b-8022-416d-a04b-ec09a4fb76e9;http\://pi/svn/geof;;false;<http\://pi\:80> Subversion Repository;;0
+repositories/c089dc043e4d00131074cf65898db956=c089dc043e4d00131074cf65898db956;https\://geofixated.googlecode.com/svn;https\://geofixated.googlecode.com/svn;branches;tags;trunk;true;33d72fe5-b241-8702-976c-b015cb9270dd;https\://geofixated.googlecode.com/svn;;false;;;0

@@ -1,0 +1,3 @@
+
+\connect dopple;
+\i ./create_dopple_tables.sql

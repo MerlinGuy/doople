@@ -1,0 +1,27 @@
+<div class="subDlgWrapper" id="logger_list">
+    <div class="buttonBar" id="#logger_buttonBar">
+        <span class="header">
+            <label class="stdlabel floatLeft">Logging Level</label>
+            <select id="lgr_level" class="floatLeft">
+                <option value=0>Error</option>
+                <option value=1>Warning</option>
+                <option value=2>Info</option>
+                <option value=3>Debug</option>
+                <option value=4>Verbose</option>
+            </select>
+            <span class="ui-icon icon_geof_save iconLeft" id="btnEditLogger" title="Edit Logger"></span>
+
+            <label class="stdlabel ml40">File</label><label class="stdlabel floatLeft" id="lgr_filepath"></label>
+            <select id="lgr_file">
+                <option value='init.log'>Initilization</option>
+                <option value='geof.log'>Geof logs</option>
+            </select>
+        </span>
+        <span class="ui-icon icon_geof_discard iconLeft" id="btnDiscardLogger" title="Truncate Log"></span>
+        <span class="ui-icon icon_geof_refresh_enable iconRight" id="btnRefreshLogger" title="Refresh Logger"></span>
+    </div>
+    <div class="pnlDisplay">
+        <textarea id="lgr_content" rows="40" cols="80">
+        </textarea>
+    </div>
+</div>

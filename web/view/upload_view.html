@@ -1,0 +1,83 @@
+<div class="viewer_container" id="UploadViewer">
+    <div id="fileUploadDlg" class="fileUploadDlg" >
+        <div class="buttonBar" id="fileUploadBtnBar">
+            <label class="floatLeft sectionHeader">Files</label>
+            <span class="ui-icon icon_geof_new_enable iconLeft" id="btnFileAdd"  title="Add new files to list"></span>
+            <span class="ui-icon icon_geof_discard iconLeft" id="btnFileDiscard" title="Remove selected files from list"></span>
+            <span class="ui-icon icon_geof_selectAll iconLeft" id="btnFileSelectAll" title="Select all files"></span>
+            <span class="ui-icon icon_geof_deselectAll iconLeft" id="btnFileDeselectAll" title="Deselect all files"></span>
+            <span class="ui-icon icon_geof_upload iconRight mr8" id="btnFileUpload" title="Upload selected files to server"></span>
+            <span class="ui-icon icon_geof_cancel iconRight mr8" id="btnCancelFileUpload" title="Cancel file upload"></span>
+        </div>
+        <div class="fileItems" id="fu_fileItems">
+            <ol id="olFileuploadList" ></ol>
+        </div>
+        <div><input type="file" id="fileUploadSelector" name="fileUploadSelector[]" multiple style="visibility:hidden;"/></div>
+    </div>
+    <div id="imgFileViewer" class="viewImage">
+
+        <div class="buttonBar">
+            <span class="ui-icon icon_geof_location iconLeft" id="btnFileGps"  title="Scan selected files for gps data"></span>
+            <span class="ui-icon icon_geof_map_enable iconLeft" id="btnUplShowMap" title="Show Map"></span>
+            <span class="ui-icon icon_geof_track iconLeft" id="btnSyncWithTrack" title="Sync gps with track"></span>
+            <span class="ui-icon icon_geof_timeline iconLeft" id="btnAdjustDatetime" title="Adjust file date/time"></span>
+            <span class="ui-icon icon_geof_gps_found iconLeft" id="btnSyncVideoToTrack" title="Sync Video To Track"></span>
+            <span class="ui-icon icon_geof_crop iconLeft" id="btnOpenTrackDialog" title="Open Track Dialog"></span>
+
+        </div>
+        <div class="defaultSection">
+            <div class="buttonBarThin">
+                <label class="floatLeft stdlabel">Keywords</label>
+                <label class="inIconBarRight w160"><input type="checkbox" id="linkKeywords"/>Link Keywords</label>
+            </div>
+            <div class="editKeyword">
+                <input type="text" id="uplKeywords" class="upl_keyword" >
+            </div>
+        </div>
+
+        <div class="defaultSection">
+            <div class="buttonBarThin">
+                <label class="floatLeft stdlabel">Projects</label>
+                <label class="inIconBarRight w160"><input type="checkbox" id="linkProjects" class=""/>Link Projects</label>
+            </div>
+            <div class="uploadProjects">
+                <select id="uplProjects" size="5" class="projects floatLeft" multiple></select>
+                <span class="ui-icon icon_geof_refresh_enable iconLeft" id="btnUplReloadProjects"  title="Reload Projects"></span>
+            </div>
+            <hr style="clear:both;margin-top:6px;">
+            <div class="buttonBar">
+                <span class="ui-icon icon_geof_save iconRight" id="btnUplProjectSave" title="Add New Project"></span>
+                <label class="stdlabel floatLeft">New</label>
+                <input type="text" id="newUplProjectName" class=floatLeft upl_project>
+            </div>
+        </div>
+
+        <div class="defaultSectionNoMargin previewSection">
+            <div class="viewImageData">
+                <label class="viewImage">Name:</label>
+                <label  id="fu_filename" size="40"  class="readOnlyFont7em"></label><br>
+                <label class="viewImage">Size:</label>
+                <label id="fu_filesize"  class="readOnlyFont7em"></label><br>
+                <label class="viewImage">Date:</label>
+                <label id="fu_filedate"  class="readOnlyFont7em"></label><br>
+                <label class="viewImage">Lat:</label>
+                <label id="fu_latitude"  class="readOnlyFont7em"></label>
+                <label class="viewImage">Lng:</label>
+                <label id="fu_longitude" class="readOnlyFont7em"></label><br>
+                <div id="image_preview" class="imgPreview" ></div>
+            </div>
+        </div>
+    </div>
+    <div class="fileUploadDlg" >
+        <div class="buttonBar">
+            <label class="floatLeft sectionHeader">Pending Uploads</label>
+            <span class="ui-icon icon_geof_discard iconLeft" id="btnUploadDiscard" title="Delete selected pending uploads"></span>
+            <span class="ui-icon icon_geof_refresh_enable iconLeft" id="btnUploadPending" title="Query for pending uploads"></span>
+            <span class="ui-icon icon_geof_bright iconRight" id="btnUploadRequery" title="Background upload status check"></span>
+        </div>
+        <div class="fileItems">
+            <ol id="olPendinguploadList"></ol>
+        </div>
+    </div>
+    <span class="ui-icon icon_geof_circleclose_enable mt4 iconRight " id="btncloseuploadview" title="Close Search View"></span>
+</div>

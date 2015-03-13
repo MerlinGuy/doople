@@ -1,0 +1,31 @@
+<div id="adjusttime_dialog" class="customDialog">
+    <div class="adjusttimeItems floatLeft" >
+        <div class="buttonBar" id="btnBaradjusttime">
+            <span class="ui-icon icon_geof_discard iconLeft" id="adjusttimeBtnDiscard" title="Delete Selected"></span>
+            <span class="ui-icon icon_geof_selectAll_enable iconLeft" id="btnAdjustSelectAll" title="Select all files"></span>
+            <span class="ui-icon icon_geof_deselectAll iconLeft" id="btnAdjustDeselectAll" title="Deselect all files"></span>
+            <span class="ui-icon icon_geof_fix iconRight" id="btnAdjusttimeFix" title="Adjust Selected Files"></span>
+            <span class="ui-icon icon_geof_undo iconRight" id="btnAdjusttimeUndo" title="Undo Ajustment"></span>
+        </div>
+        <ol id="olAdjusttimeItems"></ol>
+    </div>
+
+    <div class="adjustFileSection floatLeft">
+        <div class="viewImageData">
+            <input type="text" class="hidden" id="at_fileid"/>
+            <label class="stdlabel">Name:</label>
+            <input type='text'  id="at_filename" class="readOnlyFont7em fileName" readonly size="40"/><br>
+            <label class="stdlabel">Date:</label>
+            <label id="at_filedate" class="readOnlyFont7em" ></label><br>
+            <div id="at_imagePreview" class="imgPreviewAdjustTime" ></div>
+            <div>
+
+                <label class="stdlabel w52">Adjusted Date:</label>
+                <input type='text' id='adjustedDate' class="text_datetimeLrg textpad"/><br>
+                <label class="stdlabel w52">Adjust Seconds:</label>
+                <label id='adjustedDiff' class="readOnlyFont7em"></label>
+            </div>
+
+        </div>
+    </div>
+</div>
